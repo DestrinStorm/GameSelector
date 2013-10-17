@@ -1,3 +1,6 @@
+select best or recommended then deselect player count =- broken
+
+
 BGG XML API URLs
 
 Documentation: http://boardgamegeek.com/wiki/page/BGG_XML_API2#
