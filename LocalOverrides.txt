@@ -1,0 +1,10 @@
+#Hashed lines are ignored from processing
+#Format for each line is:
+#GameID,Key,overridevalue
+#One line per override
+#
+#Red Dragon Inn player count override
+24310,maxplayers,10
+#
+#Dominion player count override
+36218,maxplayers,6

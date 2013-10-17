@@ -1,0 +1,1 @@
+"C:\Python33\Lib\site-packages\PyQt5\pyuic5.bat" "C:\Dropbox\Coding\GameSelector\GameSelector.ui" -o GameSelector.py
