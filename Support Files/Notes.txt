@@ -1,11 +1,10 @@
-<<<<<<< HEAD
 Can probably port to PyQt4: sudo apt-get install python-qt4
 
 select best or recommended then deselect player count =- broken
 
 
-=======
->>>>>>> parent of b850655... Tidy up master before starting work on Tkinter UI
+
+
 BGG XML API URLs
 
 Documentation: http://boardgamegeek.com/wiki/page/BGG_XML_API2#

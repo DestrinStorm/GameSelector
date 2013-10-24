@@ -1,16 +1,15 @@
 import sys
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 from GameSelector import *
 import CollectionFilter
 
-class MainForm(QtWidgets.QMainWindow, Ui_GameSelector):
+class MainForm(QMainWindow, Ui_GameSelector):
 
 	NAME, MINPLAYERS, MAXPLAYERS, PLAYTIME = range(4)
 		
 	def __init__(self,parent=None):
-		QtGui.QWindow.__init__(self,parent)
+		super(MainForm, self).__init__(parent)
 		self.ui=Ui_GameSelector()
 		self.ui.setupUi(self)
 		#Wire up the player buttons to the filters
@@ -55,7 +54,7 @@ class MainForm(QtWidgets.QMainWindow, Ui_GameSelector):
 		for row, boardgame in enumerate(CollectionFilter.filteredset):
 			#name column
 			item = QTableWidgetItem(CollectionFilter.bgcollection[boardgame]["name"])
-			item.setData(Qt.UserRole, QVariant(CollectionFilter.bgcollection[boardgame]["ID"]))
+			item.setData(Qt.UserRole, CollectionFilter.bgcollection[boardgame]["ID"])
 			self.ui.bgcollectionView.setItem(row, self.NAME, item)
 			#minplayers column
 			item = QTableWidgetItem(str.rjust(str(CollectionFilter.bgcollection[boardgame]["minplayers"]),2))
@@ -132,8 +131,8 @@ class MainForm(QtWidgets.QMainWindow, Ui_GameSelector):
 		self.populateTable()
 	
 if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	form=MainForm()
+	app = QApplication(sys.argv)
+	form = MainForm()
 	#Dis/Enable next line for frameless
 	#form.setWindowFlags(form.windowFlags() | QtCore.Qt.FramelessWindowHint)
 	form.show()
