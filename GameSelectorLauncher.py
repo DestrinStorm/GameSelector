@@ -2,6 +2,7 @@ import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from GameSelector import *
+from bggdata import *
 import CollectionFilter
 
 class MainForm(QMainWindow, Ui_GameSelector):
