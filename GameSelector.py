@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Fri Oct 25 19:07:42 2013
+# Created: Fri Oct 25 19:14:21 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,11 +27,12 @@ class Ui_GameSelector(object):
     def setupUi(self, GameSelector):
         GameSelector.setObjectName(_fromUtf8("GameSelector"))
         GameSelector.setEnabled(True)
-        GameSelector.resize(1280, 720)
+        GameSelector.resize(1270, 720)
         self.centralwidget = QtGui.QWidget(GameSelector)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.bgcollectionView = QtGui.QTableWidget(self.centralwidget)
-        self.bgcollectionView.setGeometry(QtCore.QRect(270, 0, 1011, 600))
+        self.bgcollectionView.setGeometry(QtCore.QRect(270, 0, 1001, 600))
+        self.bgcollectionView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.bgcollectionView.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.bgcollectionView.setAlternatingRowColors(True)
         self.bgcollectionView.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)

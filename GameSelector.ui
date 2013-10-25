@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
+    <width>1270</width>
     <height>720</height>
    </rect>
   </property>
@@ -22,9 +22,12 @@
      <rect>
       <x>270</x>
       <y>0</y>
-      <width>1011</width>
+      <width>1001</width>
       <height>600</height>
      </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOn</enum>
     </property>
     <property name="editTriggers">
      <set>QAbstractItemView::NoEditTriggers</set>
