@@ -2,6 +2,7 @@
 import pickle
 #Import BGGData class
 import sys
+sys.path.append('C:\Dropbox\Coding\GameSelector')
 from bggdata import *
 
 #Initialisations - globalise bgcollection otherwise I can't modify it in the override loop
@@ -10,7 +11,7 @@ bgcollection = dict()
 
 #Load collection from disk
 try:
-	with open('collection.pickle', 'rb') as bgcollectionf:
+	with open('C:\Dropbox\Coding\GameSelector\collection.pickle', 'rb') as bgcollectionf:
 		bgcollection = pickle.load(bgcollectionf)
 except IOError as err:
 	print('File error: ' + str(err))
@@ -19,7 +20,7 @@ except pickle.PickleError as perr:
 	
 #Load local overrides
 try:
-	with open('LocalOverrides.txt', 'r') as overridesf:
+	with open('C:\Dropbox\Coding\GameSelector\LocalOverrides.txt', 'r') as overridesf:
 		for each_line in overridesf:
 			#ignore comment lines
 			if not each_line.startswith('#'):
