@@ -121,7 +121,7 @@ def downloadCollection(username="Darke"):
 
 	#Pickle the lot to disk for later use
 	try:
-		with open('C:\Dropbox\Coding\GameSelector\collection.pickle', 'wb') as bgcollectionf:
+		with open('collection.pickle', 'wb') as bgcollectionf:
 			pickle.dump(bgcollection,bgcollectionf)
 	except IOError as err:
 		print('File error: ' + str(err))
