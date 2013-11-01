@@ -1,6 +1,6 @@
 select best or recommended then deselect player count =- broken
 
-
+1280x720
 
 
 BGG XML API URLs

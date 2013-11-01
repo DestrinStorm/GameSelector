@@ -26,23 +26,43 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.Btn8Player.clicked.connect(lambda: self.playerFilter(8,self.ui.Btn8Player))
 		self.ui.Btn9Player.clicked.connect(lambda: self.playerFilter(9,self.ui.Btn9Player))
 		self.ui.Btn10Player.clicked.connect(lambda: self.playerFilter(10,self.ui.Btn10Player))
-		self.buttonset = set()
-		self.buttonset.add(self.ui.Btn1Player)
-		self.buttonset.add(self.ui.Btn2Player)
-		self.buttonset.add(self.ui.Btn3Player)
-		self.buttonset.add(self.ui.Btn4Player)
-		self.buttonset.add(self.ui.Btn5Player)
-		self.buttonset.add(self.ui.Btn6Player)
-		self.buttonset.add(self.ui.Btn7Player)
-		self.buttonset.add(self.ui.Btn8Player)
-		self.buttonset.add(self.ui.Btn9Player)
-		self.buttonset.add(self.ui.Btn10Player)
-		#set the playtime dial maximum and wire that in
-		self.ui.playtimedial.setMaximum(CollectionFilter.longestplaytime)
-		self.ui.playtimedial.valueChanged.connect(lambda: self.playtimeFilter(self.ui.playtimedial.value()))
+		self.playercountbuttonset = set()
+		self.playercountbuttonset.add(self.ui.Btn1Player)
+		self.playercountbuttonset.add(self.ui.Btn2Player)
+		self.playercountbuttonset.add(self.ui.Btn3Player)
+		self.playercountbuttonset.add(self.ui.Btn4Player)
+		self.playercountbuttonset.add(self.ui.Btn5Player)
+		self.playercountbuttonset.add(self.ui.Btn6Player)
+		self.playercountbuttonset.add(self.ui.Btn7Player)
+		self.playercountbuttonset.add(self.ui.Btn8Player)
+		self.playercountbuttonset.add(self.ui.Btn9Player)
+		self.playercountbuttonset.add(self.ui.Btn10Player)
+		#wire up the playtime buttons
+		self.ui.Btn30mins.clicked.connect(lambda: self.playtimeFilter(30,self.ui.Btn30mins))
+		self.ui.Btn60mins.clicked.connect(lambda: self.playtimeFilter(60,self.ui.Btn60mins))
+		self.ui.Btn90mins.clicked.connect(lambda: self.playtimeFilter(90,self.ui.Btn90mins))
+		self.ui.Btn120mins.clicked.connect(lambda: self.playtimeFilter(120,self.ui.Btn120mins))
+		self.ui.Btn150mins.clicked.connect(lambda: self.playtimeFilter(150,self.ui.Btn150mins))
+		self.ui.Btn180mins.clicked.connect(lambda: self.playtimeFilter(180,self.ui.Btn180mins))
+		self.ui.Btn240mins.clicked.connect(lambda: self.playtimeFilter(240,self.ui.Btn240mins))
+		self.ui.Btn300mins.clicked.connect(lambda: self.playtimeFilter(300,self.ui.Btn300mins))
+		self.ui.Btn360mins.clicked.connect(lambda: self.playtimeFilter(360,self.ui.Btn360mins))
+		self.ui.Btn420mins.clicked.connect(lambda: self.playtimeFilter(420,self.ui.Btn420mins))
+		self.playtimebuttonset = set()
+		self.playtimebuttonset.add(self.ui.Btn30mins)
+		self.playtimebuttonset.add(self.ui.Btn60mins)
+		self.playtimebuttonset.add(self.ui.Btn90mins)
+		self.playtimebuttonset.add(self.ui.Btn120mins)
+		self.playtimebuttonset.add(self.ui.Btn150mins)
+		self.playtimebuttonset.add(self.ui.Btn180mins)
+		self.playtimebuttonset.add(self.ui.Btn240mins)
+		self.playtimebuttonset.add(self.ui.Btn300mins)
+		self.playtimebuttonset.add(self.ui.Btn360mins)
+		self.playtimebuttonset.add(self.ui.Btn420mins)
 		#Initial setup
 		self.populateTable()
 		self.ui.bgcollectionView.resizeColumnsToContents()
+		self.ui.bgcollectionView.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 75px; }")
 
 	def populateTable(self):
 		#clear and disable sorting
@@ -77,7 +97,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 	def playerFilter(self,numplayers,button):
 		if button.isChecked():
 			CollectionFilter.numplayerfilter(numplayers)
-			turnoffset = self.buttonset.difference({button})
+			turnoffset = self.playercountbuttonset.difference({button})
 			for button in turnoffset:
 				button.setChecked(False)
 			self.ui.bestButton.setEnabled(True)
@@ -99,7 +119,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		if button.isChecked():
 			#which player count is currently checked
 			numplayers = 0
-			for playercountbutton in self.buttonset:
+			for playercountbutton in self.playercountbuttonset:
 				if playercountbutton.isChecked():
 					numplayers = playercountbutton.text()		
 			CollectionFilter.suggestedbestplayercountfilter(numplayers)
@@ -113,7 +133,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		if button.isChecked():
 			#which player count is currently checked
 			numplayers = 0
-			for playercountbutton in self.buttonset:
+			for playercountbutton in self.playercountbuttonset:
 				if playercountbutton.isChecked():
 					numplayers = playercountbutton.text()		
 			CollectionFilter.suggestedrecommendedplayercountfilter(numplayers)
@@ -123,11 +143,14 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		CollectionFilter.combinefilters()
 		self.populateTable()	
 			
-	def playtimeFilter(self,playtime):
-		if playtime == 0:
-			CollectionFilter.resetplaytimefilter()
-		else:
+	def playtimeFilter(self,playtime,button):
+		if button.isChecked():
 			CollectionFilter.playtimefilter(playtime)
+			turnoffset = self.playtimebuttonset.difference({button})
+			for button in turnoffset:
+				button.setChecked(False)
+		else:
+			CollectionFilter.resetplaytimefilter()
 		CollectionFilter.combinefilters()
 		self.populateTable()
 	
@@ -135,6 +158,6 @@ if __name__ == "__main__":
 	app = QApplication(sys.argv)
 	form = MainForm()
 	#Dis/Enable next line for frameless
-	#form.setWindowFlags(form.windowFlags() | QtCore.Qt.FramelessWindowHint)
+	form.setWindowFlags(form.windowFlags() | QtCore.Qt.FramelessWindowHint)
 	form.show()
 	sys.exit(app.exec_())
