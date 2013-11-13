@@ -63,13 +63,14 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.populateTable()
 		self.ui.bgcollectionView.resizeColumnsToContents()
 		self.ui.bgcollectionView.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 70px; }")
+		self.ui.bgcollectionView.horizontalHeader().setMinimumHeight(50)
 
 	def populateTable(self):
 		#clear and disable sorting
 		self.ui.bgcollectionView.clear()
 		self.ui.bgcollectionView.setSortingEnabled(False)
 		self.ui.bgcollectionView.setRowCount(len(CollectionFilter.filteredset))
-		headers = ["Name", "Min. Players", "Max. Players", "Playing Time"]
+		headers = ["Name", "Min.\nPlayers", "Max.\nPlayers", "Playing\nTime"]
 		self.ui.bgcollectionView.setColumnCount(len(headers))
 		self.ui.bgcollectionView.setHorizontalHeaderLabels(headers)
 		for row, boardgame in enumerate(CollectionFilter.filteredset):
