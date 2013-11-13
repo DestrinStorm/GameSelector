@@ -62,7 +62,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		#Initial setup
 		self.populateTable()
 		self.ui.bgcollectionView.resizeColumnsToContents()
-		self.ui.bgcollectionView.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 75px; }")
+		self.ui.bgcollectionView.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 70px; }")
 
 	def populateTable(self):
 		#clear and disable sorting
@@ -158,6 +158,6 @@ if __name__ == "__main__":
 	app = QApplication(sys.argv)
 	form = MainForm()
 	#Dis/Enable next line for frameless
-	form.setWindowFlags(form.windowFlags() | QtCore.Qt.FramelessWindowHint)
+	#form.setWindowFlags(form.windowFlags() | QtCore.Qt.FramelessWindowHint)
 	form.showMaximized()
 	sys.exit(app.exec_())
