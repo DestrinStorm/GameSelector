@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>700</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,8 +22,8 @@
      <rect>
       <x>270</x>
       <y>0</y>
-      <width>930</width>
-      <height>700</height>
+      <width>1010</width>
+      <height>720</height>
      </rect>
     </property>
     <property name="verticalScrollBarPolicy">
@@ -336,7 +336,7 @@ Players</string>
       <x>5</x>
       <y>160</y>
       <width>260</width>
-      <height>150</height>
+      <height>131</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -351,7 +351,7 @@ Players</string>
        <x>75</x>
        <y>10</y>
        <width>91</width>
-       <height>31</height>
+       <height>15</height>
       </rect>
      </property>
      <property name="font">
@@ -370,7 +370,7 @@ Players</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>50</y>
+       <y>30</y>
        <width>41</width>
        <height>41</height>
       </rect>
@@ -392,7 +392,7 @@ Players</string>
      <property name="geometry">
       <rect>
        <x>60</x>
-       <y>50</y>
+       <y>30</y>
        <width>41</width>
        <height>41</height>
       </rect>
@@ -408,7 +408,7 @@ Players</string>
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>50</y>
+       <y>30</y>
        <width>41</width>
        <height>41</height>
       </rect>
@@ -424,7 +424,7 @@ Players</string>
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>50</y>
+       <y>30</y>
        <width>41</width>
        <height>41</height>
       </rect>
@@ -440,7 +440,7 @@ Players</string>
      <property name="geometry">
       <rect>
        <x>210</x>
-       <y>50</y>
+       <y>30</y>
        <width>41</width>
        <height>41</height>
       </rect>
@@ -456,7 +456,7 @@ Players</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>100</y>
+       <y>80</y>
        <width>41</width>
        <height>41</height>
       </rect>
@@ -472,7 +472,7 @@ Players</string>
      <property name="geometry">
       <rect>
        <x>60</x>
-       <y>100</y>
+       <y>80</y>
        <width>41</width>
        <height>41</height>
       </rect>
@@ -488,7 +488,7 @@ Players</string>
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>100</y>
+       <y>80</y>
        <width>41</width>
        <height>41</height>
       </rect>
@@ -504,7 +504,7 @@ Players</string>
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>100</y>
+       <y>80</y>
        <width>41</width>
        <height>41</height>
       </rect>
@@ -520,7 +520,7 @@ Players</string>
      <property name="geometry">
       <rect>
        <x>210</x>
-       <y>100</y>
+       <y>80</y>
        <width>41</width>
        <height>41</height>
       </rect>
