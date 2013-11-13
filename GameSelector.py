@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Wed Nov 13 22:10:08 2013
+# Created: Wed Nov 13 22:47:34 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,7 +27,7 @@ class Ui_GameSelector(object):
     def setupUi(self, GameSelector):
         GameSelector.setObjectName(_fromUtf8("GameSelector"))
         GameSelector.setEnabled(True)
-        GameSelector.resize(1280, 720)
+        GameSelector.resize(1200, 720)
         self.centralwidget = QtGui.QWidget(GameSelector)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.bgcollectionView = QtGui.QTableWidget(self.centralwidget)
