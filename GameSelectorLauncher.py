@@ -16,7 +16,6 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		#Wire up the player buttons to the filters
 		self.ui.bestButton.clicked.connect(lambda: self.bestFilter(self.ui.bestButton))
 		self.ui.recommendedButton.clicked.connect(lambda: self.recommendedFilter(self.ui.recommendedButton))
-		self.ui.Btn1Player.clicked.connect(lambda: self.playerFilter(1,self.ui.Btn1Player))
 		self.ui.Btn2Player.clicked.connect(lambda: self.playerFilter(2,self.ui.Btn2Player))
 		self.ui.Btn3Player.clicked.connect(lambda: self.playerFilter(3,self.ui.Btn3Player))
 		self.ui.Btn4Player.clicked.connect(lambda: self.playerFilter(4,self.ui.Btn4Player))
@@ -25,9 +24,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.Btn7Player.clicked.connect(lambda: self.playerFilter(7,self.ui.Btn7Player))
 		self.ui.Btn8Player.clicked.connect(lambda: self.playerFilter(8,self.ui.Btn8Player))
 		self.ui.Btn9Player.clicked.connect(lambda: self.playerFilter(9,self.ui.Btn9Player))
-		self.ui.Btn10Player.clicked.connect(lambda: self.playerFilter(10,self.ui.Btn10Player))
 		self.playercountbuttonset = set()
-		self.playercountbuttonset.add(self.ui.Btn1Player)
 		self.playercountbuttonset.add(self.ui.Btn2Player)
 		self.playercountbuttonset.add(self.ui.Btn3Player)
 		self.playercountbuttonset.add(self.ui.Btn4Player)
@@ -36,7 +33,6 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.playercountbuttonset.add(self.ui.Btn7Player)
 		self.playercountbuttonset.add(self.ui.Btn8Player)
 		self.playercountbuttonset.add(self.ui.Btn9Player)
-		self.playercountbuttonset.add(self.ui.Btn10Player)
 		#wire up the playtime buttons
 		self.ui.Btn30mins.clicked.connect(lambda: self.playtimeFilter(30,self.ui.Btn30mins))
 		self.ui.Btn60mins.clicked.connect(lambda: self.playtimeFilter(60,self.ui.Btn60mins))
@@ -46,8 +42,6 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.Btn180mins.clicked.connect(lambda: self.playtimeFilter(180,self.ui.Btn180mins))
 		self.ui.Btn240mins.clicked.connect(lambda: self.playtimeFilter(240,self.ui.Btn240mins))
 		self.ui.Btn300mins.clicked.connect(lambda: self.playtimeFilter(300,self.ui.Btn300mins))
-		self.ui.Btn360mins.clicked.connect(lambda: self.playtimeFilter(360,self.ui.Btn360mins))
-		self.ui.Btn420mins.clicked.connect(lambda: self.playtimeFilter(420,self.ui.Btn420mins))
 		self.playtimebuttonset = set()
 		self.playtimebuttonset.add(self.ui.Btn30mins)
 		self.playtimebuttonset.add(self.ui.Btn60mins)
@@ -57,22 +51,35 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.playtimebuttonset.add(self.ui.Btn180mins)
 		self.playtimebuttonset.add(self.ui.Btn240mins)
 		self.playtimebuttonset.add(self.ui.Btn300mins)
-		self.playtimebuttonset.add(self.ui.Btn360mins)
-		self.playtimebuttonset.add(self.ui.Btn420mins)
-		#Initial setup
-		self.populateTable()
-		self.ui.bgcollectionView.resizeColumnsToContents()
-		self.ui.bgcollectionView.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 70px; }")
+		#size/format overrides not easily configurable from QTDesigner
+		self.ui.bgcollectionView.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 55px; }")
 		self.ui.bgcollectionView.horizontalHeader().setMinimumHeight(50)
+		self.ui.mechaniclist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 55px; }")
+		self.ui.categorylist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 55px; }")
+		#populate mechanic/category lists
+		for mechanic in CollectionFilter.mechanics:
+			self.ui.mechaniclist.addItem(mechanic)
+		self.ui.mechaniclist.sortItems()
+		for category in CollectionFilter.categories:
+			self.ui.categorylist.addItem(category)
+		self.ui.categorylist.sortItems()
+		self.ui.bgcollectionView.setColumnWidth(self.NAME,400)
+		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,50)
+		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,50)
+		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,50)
+		#Initial setup
+		self.populateTable()		
 
 	def populateTable(self):
 		#clear and disable sorting
 		self.ui.bgcollectionView.clear()
 		self.ui.bgcollectionView.setSortingEnabled(False)
-		self.ui.bgcollectionView.setRowCount(len(CollectionFilter.filteredset))
+		#replace headers - clear() deletes them :(
 		headers = ["Name", "Min.\nPlayers", "Max.\nPlayers", "Playing\nTime"]
 		self.ui.bgcollectionView.setColumnCount(len(headers))
 		self.ui.bgcollectionView.setHorizontalHeaderLabels(headers)
+		#get the filtered list length and start populating
+		self.ui.bgcollectionView.setRowCount(len(CollectionFilter.filteredset))
 		for row, boardgame in enumerate(CollectionFilter.filteredset):
 			#name column
 			item = QTableWidgetItem(CollectionFilter.bgcollection[boardgame]["name"])
@@ -94,6 +101,8 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.bgcollectionView.setSortingEnabled(True)
 		#TODO: kinda want to keep track of whatever the 'current' sort is
 		self.ui.bgcollectionView.sortItems(self.NAME)
+		#update the results LCD
+		self.ui.lcdResults.display(self.ui.bgcollectionView.rowCount())
 
 	def playerFilter(self,numplayers,button):
 		if button.isChecked():
