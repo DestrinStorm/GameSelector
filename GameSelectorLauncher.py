@@ -51,35 +51,30 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.playtimebuttonset.add(self.ui.Btn180mins)
 		self.playtimebuttonset.add(self.ui.Btn240mins)
 		self.playtimebuttonset.add(self.ui.Btn300mins)
-		#wire in the mechanism/category buttons
-		self.ui.mechButton.clicked.connect(lambda: self.mechcatbuttonfaff(self.ui.catButton,self.ui.mechButton))
-		self.ui.catButton.clicked.connect(lambda: self.mechcatbuttonfaff(self.ui.mechButton,self.ui.catButton))
-		#self.ui.catButton.clicked.connect(lambda: self.ui.mechButton.setEnabled(not(self.ui.catButton.isEnabled())))
+		#wire up the list items
+		self.ui.mechaniclist.itemClicked.connect(lambda: self.mechanicFilter())
+		self.ui.categorylist.itemClicked.connect(lambda: self.categoryFilter())
 		#size/format overrides not easily configurable from QTDesigner
 		self.ui.bgcollectionView.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 55px; }")
 		self.ui.bgcollectionView.horizontalHeader().setMinimumHeight(50)
 		self.ui.mechaniclist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 55px; }")
 		self.ui.categorylist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 55px; }")
-		self.ui.categorylist.setVisible(False)
-		#populate mechanic/category lists
+		self.ui.bgcollectionView.setColumnWidth(self.NAME,423)
+		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,60)
+		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,60)
+		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,60)
+		#Initial setup
+		self.populateLists()
+		self.populateTable()
+
+	def populateLists(self):
+		#populate mechanic/category lists with default values
 		for mechanic in CollectionFilter.mechanics:
 			self.ui.mechaniclist.addItem(mechanic)
 		self.ui.mechaniclist.sortItems()
 		for category in CollectionFilter.categories:
 			self.ui.categorylist.addItem(category)
 		self.ui.categorylist.sortItems()
-		self.ui.bgcollectionView.setColumnWidth(self.NAME,400)
-		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,50)
-		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,50)
-		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,50)
-		#Initial setup
-		self.populateTable()		
-
-	def mechcatbuttonfaff(self,buttontoenable,buttontodisable):
-		#buttontodisable.setChecked(False)
-		buttontodisable.setEnabled(False)
-		buttontoenable.setChecked(False)
-		buttontoenable.setEnabled(True)
 	
 	def populateTable(self):
 		#clear and disable sorting
@@ -174,6 +169,22 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			CollectionFilter.resetplaytimefilter()
 		CollectionFilter.combinefilters()
 		self.populateTable()
+
+	def mechanicFilter(self):
+		selection = []
+		for mechanism in self.ui.mechaniclist.selectedItems():
+			selection.append(mechanism.text())
+		CollectionFilter.mechanicfilter(selection)
+		CollectionFilter.combinefilters()
+		self.populateTable()
+		
+	def categoryFilter(self):
+		selection = []
+		for category in self.ui.categorylist.selectedItems():
+			selection.append(category.text())
+		CollectionFilter.categoryfilter(selection)
+		CollectionFilter.combinefilters()
+		self.populateTable()                
 	
 if __name__ == "__main__":
 	app = QApplication(sys.argv)

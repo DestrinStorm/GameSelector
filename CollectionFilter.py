@@ -32,13 +32,13 @@ except IOError as err:
 	print('File error: ' + str(err))
 
 #Get all known mechanics and categories into sets
-mechanics = set()
-categories = set()
+allmechanics = set()
+allcategories = set()
 for BGID in bgcollection.keys():
 	for mechanic in bgcollection[BGID]['mechanics']:
-		mechanics.add(mechanic)
+		allmechanics.add(mechanic)
 	for category in bgcollection[BGID]['categories']:
-		categories.add(category)
+		allcategories.add(category)
 #Initialise filters - create them all as 'complete set' to start with
 allbgids = set(bgcollection.keys())
 filteredset = allbgids
@@ -47,12 +47,9 @@ playtimeset = allbgids
 suggestedbestset = allbgids
 mechanicset = allbgids
 categoryset = allbgids
-#find the longest game (it's probably Virgin Queen)
-longestplaytime = 0
-for BGID in bgcollection.keys():
-	if bgcollection[BGID]['playingtime'] > longestplaytime:
-		longestplaytime = bgcollection[BGID]['playingtime']
-		
+#filters for the selection lists
+mechanics = allmechanics
+categories = allcategories		
 
 def resetplayerfilter():
 	global numplayerset
@@ -112,4 +109,4 @@ def categoryfilter(categorylist):
 
 def combinefilters():
 	global filteredset,numplayerset,playtimeset,suggestedbestset,mechanicset,categoryset
-	filteredset = set.intersection(numplayerset,playtimeset,suggestedbestset)
+	filteredset = set.intersection(numplayerset,playtimeset,suggestedbestset,mechanicset,categoryset)
