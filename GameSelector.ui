@@ -72,9 +72,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>220</y>
+      <y>260</y>
       <width>511</width>
-      <height>431</height>
+      <height>391</height>
      </rect>
     </property>
     <property name="font">
@@ -484,67 +484,104 @@
     </widget>
    </widget>
    <widget class="QListWidget" name="categorylist">
-    <property name="geometry">
-     <rect>
-      <x>550</x>
-      <y>180</y>
-      <width>561</width>
-      <height>211</height>
-     </rect>
+    <property name="enabled">
+     <bool>true</bool>
     </property>
-   </widget>
-   <widget class="QLabel" name="mechaniclabel">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>180</y>
-      <width>101</width>
-      <height>30</height>
+      <x>10</x>
+      <y>260</y>
+      <width>511</width>
+      <height>391</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>10</pointsize>
+      <pointsize>22</pointsize>
      </font>
     </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mechanism&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
    </widget>
-   <widget class="QLabel" name="categorylabel">
+   <widget class="QPushButton" name="mechButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>180</y>
-      <width>101</width>
-      <height>30</height>
+      <x>50</x>
+      <y>190</y>
+      <width>161</width>
+      <height>50</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Category&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>Mechanism</string>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="catButton">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>190</y>
+      <width>161</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Category</string>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <zorder>categorylist</zorder>
    <zorder>numPlayerFrame</zorder>
    <zorder>bgcollectionView</zorder>
    <zorder>mechaniclist</zorder>
    <zorder>lcdResults</zorder>
    <zorder>playTimeFrame</zorder>
-   <zorder>categorylist</zorder>
-   <zorder>mechaniclabel</zorder>
-   <zorder>categorylabel</zorder>
+   <zorder>mechButton</zorder>
+   <zorder>catButton</zorder>
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>catButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>categorylist</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>392</x>
+     <y>214</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>652</x>
+     <y>240</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mechButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>mechaniclist</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>130</x>
+     <y>215</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>387</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

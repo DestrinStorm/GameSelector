@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Thu Nov 14 18:09:26 2013
+# Created: Fri Nov 15 09:58:02 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -45,7 +45,7 @@ class Ui_GameSelector(object):
         self.bgcollectionView.horizontalHeader().setSortIndicatorShown(False)
         self.bgcollectionView.verticalHeader().setVisible(False)
         self.mechaniclist = QtGui.QListWidget(self.centralwidget)
-        self.mechaniclist.setGeometry(QtCore.QRect(10, 220, 511, 431))
+        self.mechaniclist.setGeometry(QtCore.QRect(10, 260, 511, 391))
         font = QtGui.QFont()
         font.setPointSize(22)
         self.mechaniclist.setFont(font)
@@ -162,25 +162,27 @@ class Ui_GameSelector(object):
         self.Btn300mins.setCheckable(True)
         self.Btn300mins.setObjectName(_fromUtf8("Btn300mins"))
         self.categorylist = QtGui.QListWidget(self.centralwidget)
-        self.categorylist.setGeometry(QtCore.QRect(550, 180, 561, 211))
+        self.categorylist.setEnabled(True)
+        self.categorylist.setGeometry(QtCore.QRect(10, 260, 511, 391))
+        font = QtGui.QFont()
+        font.setPointSize(22)
+        self.categorylist.setFont(font)
         self.categorylist.setObjectName(_fromUtf8("categorylist"))
-        self.mechaniclabel = QtGui.QLabel(self.centralwidget)
-        self.mechaniclabel.setGeometry(QtCore.QRect(220, 180, 101, 30))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.mechaniclabel.setFont(font)
-        self.mechaniclabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.mechaniclabel.setObjectName(_fromUtf8("mechaniclabel"))
-        self.categorylabel = QtGui.QLabel(self.centralwidget)
-        self.categorylabel.setGeometry(QtCore.QRect(270, 180, 101, 30))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.categorylabel.setFont(font)
-        self.categorylabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.categorylabel.setObjectName(_fromUtf8("categorylabel"))
+        self.mechButton = QtGui.QPushButton(self.centralwidget)
+        self.mechButton.setEnabled(False)
+        self.mechButton.setGeometry(QtCore.QRect(50, 190, 161, 50))
+        self.mechButton.setCheckable(True)
+        self.mechButton.setChecked(True)
+        self.mechButton.setObjectName(_fromUtf8("mechButton"))
+        self.catButton = QtGui.QPushButton(self.centralwidget)
+        self.catButton.setGeometry(QtCore.QRect(310, 190, 161, 50))
+        self.catButton.setCheckable(True)
+        self.catButton.setObjectName(_fromUtf8("catButton"))
         GameSelector.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(GameSelector)
+        QtCore.QObject.connect(self.catButton, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.categorylist.setVisible)
+        QtCore.QObject.connect(self.mechButton, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.mechaniclist.setVisible)
         QtCore.QMetaObject.connectSlotsByName(GameSelector)
 
     def retranslateUi(self, GameSelector):
@@ -206,6 +208,6 @@ class Ui_GameSelector(object):
         self.Btn180mins.setText(_translate("GameSelector", "3:00", None))
         self.Btn240mins.setText(_translate("GameSelector", "4:00", None))
         self.Btn300mins.setText(_translate("GameSelector", "5:00", None))
-        self.mechaniclabel.setText(_translate("GameSelector", "<html><head/><body><p>Mechanism</p></body></html>", None))
-        self.categorylabel.setText(_translate("GameSelector", "<html><head/><body><p>Category</p></body></html>", None))
+        self.mechButton.setText(_translate("GameSelector", "Mechanism", None))
+        self.catButton.setText(_translate("GameSelector", "Category", None))
 

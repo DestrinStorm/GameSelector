@@ -51,11 +51,16 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.playtimebuttonset.add(self.ui.Btn180mins)
 		self.playtimebuttonset.add(self.ui.Btn240mins)
 		self.playtimebuttonset.add(self.ui.Btn300mins)
+		#wire in the mechanism/category buttons
+		self.ui.mechButton.clicked.connect(lambda: self.mechcatbuttonfaff(self.ui.catButton,self.ui.mechButton))
+		self.ui.catButton.clicked.connect(lambda: self.mechcatbuttonfaff(self.ui.mechButton,self.ui.catButton))
+		#self.ui.catButton.clicked.connect(lambda: self.ui.mechButton.setEnabled(not(self.ui.catButton.isEnabled())))
 		#size/format overrides not easily configurable from QTDesigner
 		self.ui.bgcollectionView.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 55px; }")
 		self.ui.bgcollectionView.horizontalHeader().setMinimumHeight(50)
 		self.ui.mechaniclist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 55px; }")
 		self.ui.categorylist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 55px; }")
+		self.ui.categorylist.setVisible(False)
 		#populate mechanic/category lists
 		for mechanic in CollectionFilter.mechanics:
 			self.ui.mechaniclist.addItem(mechanic)
@@ -70,6 +75,12 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		#Initial setup
 		self.populateTable()		
 
+	def mechcatbuttonfaff(self,buttontoenable,buttontodisable):
+		#buttontodisable.setChecked(False)
+		buttontodisable.setEnabled(False)
+		buttontoenable.setChecked(False)
+		buttontoenable.setEnabled(True)
+	
 	def populateTable(self):
 		#clear and disable sorting
 		self.ui.bgcollectionView.clear()
