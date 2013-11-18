@@ -54,6 +54,8 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		#wire up the list items
 		self.ui.mechaniclist.itemClicked.connect(lambda: self.mechanicFilter())
 		self.ui.categorylist.itemClicked.connect(lambda: self.categoryFilter())
+		#and finally link in the admin screen
+		self.ui.downloadData.clicked.connect(lambda: self.downloadData())		
 		#size/format overrides not easily configurable from QTDesigner
 		self.ui.bgcollectionView.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 55px; }")
 		self.ui.bgcollectionView.horizontalHeader().setMinimumHeight(50)
@@ -184,7 +186,16 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			selection.append(category.text())
 		CollectionFilter.categoryfilter(selection)
 		CollectionFilter.combinefilters()
-		self.populateTable()                
+		self.populateTable()
+
+	def downloadData(self):
+		prog = QProgressDialog("Downloading...", "Cancel", 0, 300)#, QWidget parent = None, Qt.WindowFlags flags = 0)
+		#downloadCollection()
+		CollectionFilter.loadCollection()
+		CollectionFilter.resetAllFilters()
+		#need a 'reset ui' function
+		self.populateTable()
+		
 	
 if __name__ == "__main__":
 	app = QApplication(sys.argv)

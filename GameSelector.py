@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Fri Nov 15 19:05:12 2013
+# Created: Mon Nov 18 11:46:28 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -234,6 +234,18 @@ class Ui_GameSelector(object):
         self.categorylist.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
         self.categorylist.setObjectName(_fromUtf8("categorylist"))
         self.tabbedzone.addTab(self.cattab, _fromUtf8(""))
+        self.tab = QtGui.QWidget()
+        self.tab.setObjectName(_fromUtf8("tab"))
+        self.downloadData = QtGui.QPushButton(self.tab)
+        self.downloadData.setGeometry(QtCore.QRect(10, 10, 121, 61))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.downloadData.setFont(font)
+        self.downloadData.setCheckable(False)
+        self.downloadData.setChecked(False)
+        self.downloadData.setFlat(False)
+        self.downloadData.setObjectName(_fromUtf8("downloadData"))
+        self.tabbedzone.addTab(self.tab, _fromUtf8(""))
         GameSelector.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(GameSelector)
@@ -265,4 +277,7 @@ class Ui_GameSelector(object):
         self.Btn300mins.setText(_translate("GameSelector", "5:00", None))
         self.tabbedzone.setTabText(self.tabbedzone.indexOf(self.mechtab), _translate("GameSelector", "Mechanism", None))
         self.tabbedzone.setTabText(self.tabbedzone.indexOf(self.cattab), _translate("GameSelector", "Theme", None))
+        self.downloadData.setText(_translate("GameSelector", "Download\n"
+"Collection", None))
+        self.tabbedzone.setTabText(self.tabbedzone.indexOf(self.tab), _translate("GameSelector", "Admin", None))
 
