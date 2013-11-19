@@ -9,29 +9,29 @@ global bgcollection
 bgcollection = dict()
 
 def loadCollection():
-        global bgcollection
-        #Load collection from disk
-        try:
-                with open('collection.pickle', 'rb') as bgcollectionf:
-                        bgcollection = pickle.load(bgcollectionf)
-        except IOError as err:
-                print('File error: ' + str(err))
-        except pickle.PickleError as perr:
-                print('Pickling error: ' + str(perr))
-                
-        #Load local overrides
-        try:
-                with open('LocalOverrides.txt', 'r') as overridesf:
-                        for each_line in overridesf:
-                                #ignore comment lines
-                                if not each_line.startswith('#'):
-                                        (bgid,key,value) = each_line.split(',')
-                                        try:
-                                                bgcollection[int(bgid)][key] = int(value)
-                                        except ValueError:
-                                                bgcollection[int(bgid)][key] = value
-        except IOError as err:
-                print('File error: ' + str(err))
+	global bgcollection
+	#Load collection from disk
+	try:
+		with open('collection.pickle', 'rb') as bgcollectionf:
+			bgcollection = pickle.load(bgcollectionf)
+	except IOError as err:
+		print('File error: ' + str(err))
+	except pickle.PickleError as perr:
+		print('Pickling error: ' + str(perr))
+		
+	#Load local overrides
+	try:
+		with open('LocalOverrides.txt', 'r') as overridesf:
+			for each_line in overridesf:
+				#ignore comment lines
+				if not each_line.startswith('#'):
+					(bgid,key,value) = each_line.split(',')
+					try:
+						bgcollection[int(bgid)][key] = int(value)
+					except ValueError:
+						bgcollection[int(bgid)][key] = value
+	except IOError as err:
+		print('File error: ' + str(err))
 
 #initial load
 loadCollection()
@@ -39,10 +39,10 @@ loadCollection()
 allmechanics = set()
 allcategories = set()
 for BGID in bgcollection.keys():
-        for mechanic in bgcollection[BGID]['mechanics']:
-                allmechanics.add(mechanic)
-        for category in bgcollection[BGID]['categories']:
-                allcategories.add(category)
+	for mechanic in bgcollection[BGID]['mechanics']:
+		allmechanics.add(mechanic)
+	for category in bgcollection[BGID]['categories']:
+		allcategories.add(category)
 #Initialise filters - create them all as 'complete set' to start with
 allbgids = set(bgcollection.keys())
 filteredset = allbgids
@@ -56,12 +56,13 @@ mechanics = allmechanics
 categories = allcategories	
 
 def resetAllFilters():
-        resetplayerfilter()
-        resetplaytimefilter()
-        resetsuggestedfilter()
-        resetmechanicfilter()
-        resetcategoryfilter()
-        
+	resetplayerfilter()
+	resetplaytimefilter()
+	resetsuggestedfilter()
+	resetmechanicfilter()
+	resetcategoryfilter()
+	combinefilters()
+	
 def resetplayerfilter():
 	global numplayerset
 	numplayerset = allbgids
@@ -91,8 +92,8 @@ def suggestedrecommendedplayercountfilter(numplayers,votetolerance=50):
 	suggestedbestset = set([BGID for BGID in bgcollection.keys() if bgcollection[BGID].isRecommendedWith(numplayers,votetolerance)])                
 
 def resetmechanicfilter():
-        global mechanicset
-        mechanicset = allbgids
+	global mechanicset
+	mechanicset = allbgids
 
 def mechanicfilter(mechaniclist):
 	global mechanicset
@@ -109,8 +110,8 @@ def mechanicfilter(mechaniclist):
 	mechanicset = bgidset
 
 def resetcategoryfilter():
-        global categoryset
-        categoryset = allbgids
+	global categoryset
+	categoryset = allbgids
 
 def categoryfilter(categorylist):
 	global categoryset
@@ -127,5 +128,19 @@ def categoryfilter(categorylist):
 	categoryset = bgidset
 
 def combinefilters():
-	global filteredset,numplayerset,playtimeset,suggestedbestset,mechanicset,categoryset
+	global filteredset,numplayerset,playtimeset,suggestedbestset,mechanicset,categoryset,mechanics,categories
 	filteredset = set.intersection(numplayerset,playtimeset,suggestedbestset,mechanicset,categoryset)
+	#strip down the mechanics list to match the newly filtered set of games
+	#first, check if we're filtering at all
+	if len(filteredset) == len(allbgids):
+		#nope, reset them to 'all'
+		mechanics = allmechanics
+		categories = allcategories
+	else:
+		mechanics = set()
+		categories = set()
+		for BGID in filteredset:
+			for mechanic in bgcollection[BGID]['mechanics']:
+				mechanics.add(mechanic)
+			for category in bgcollection[BGID]['categories']:
+				categories.add(category)

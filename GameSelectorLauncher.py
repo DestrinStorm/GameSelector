@@ -66,17 +66,39 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,60)
 		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,60)
 		#Initial setup
+		self.updateUI()
+
+	def updateUI(self):
+		CollectionFilter.combinefilters()
 		self.populateLists()
-		self.populateTable()
+		self.populateTable()		
 
 	def populateLists(self):
-		#populate mechanic/category lists with default values
+		#populate mechanic/category lists with values
+		#first, remember what we have selected
+		selection = []
+		for mechanism in self.ui.mechaniclist.selectedItems():
+			selection.append(mechanism.text())
+		#that is stored, clear and repopulate
+		self.ui.mechaniclist.clear()
 		for mechanic in CollectionFilter.mechanics:
 			self.ui.mechaniclist.addItem(mechanic)
 		self.ui.mechaniclist.sortItems()
+		#now reselect previously selected items
+		for mechanic in selection:
+			for item in self.ui.mechaniclist.findItems(mechanic,Qt.MatchFixedString):
+				item.setSelected(True)
+		#and do the same for the category list
+		selection = []
+		for category in self.ui.categorylist.selectedItems():
+			selection.append(category.text())
+		self.ui.categorylist.clear()
 		for category in CollectionFilter.categories:
 			self.ui.categorylist.addItem(category)
 		self.ui.categorylist.sortItems()
+		for category in selection:
+			for item in self.ui.categorylist.findItems(category,Qt.MatchFixedString):
+				item.setSelected(True)
 	
 	def populateTable(self):
 		#clear and disable sorting
@@ -121,17 +143,20 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			self.ui.bestButton.setEnabled(True)
 			self.ui.recommendedButton.setEnabled(True)
 		else:
-			CollectionFilter.resetplayerfilter()
+			self.ui.bestButton.setChecked(False)
+			self.ui.recommendedButton.setChecked(False)
 			self.ui.bestButton.setEnabled(False)
 			self.ui.recommendedButton.setEnabled(False)
+			CollectionFilter.resetplayerfilter()
+			CollectionFilter.resetsuggestedfilter()
+			self.updateUI()
 		#are the suggested voting filters on?
 		if self.ui.bestButton.isChecked():
 			self.bestFilter(self.ui.bestButton)
 		elif self.ui.recommendedButton.isChecked():
 			self.recommendedFilter(self.ui.recommendedButton)
 		else:
-			CollectionFilter.combinefilters()
-			self.populateTable()
+			self.updateUI()
 
 	def bestFilter(self,button):
 		if button.isChecked():
@@ -144,8 +169,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			self.ui.recommendedButton.setChecked(False)
 		else:
 			CollectionFilter.resetsuggestedfilter()
-		CollectionFilter.combinefilters()
-		self.populateTable()
+		self.updateUI()
 
 	def recommendedFilter(self,button):
 		if button.isChecked():
@@ -158,8 +182,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			self.ui.bestButton.setChecked(False)
 		else:
 			CollectionFilter.resetsuggestedfilter()
-		CollectionFilter.combinefilters()
-		self.populateTable()	
+		self.updateUI()	
 			
 	def playtimeFilter(self,playtime,button):
 		if button.isChecked():
@@ -169,33 +192,31 @@ class MainForm(QMainWindow, Ui_GameSelector):
 				button.setChecked(False)
 		else:
 			CollectionFilter.resetplaytimefilter()
-		CollectionFilter.combinefilters()
-		self.populateTable()
+		self.updateUI()
 
 	def mechanicFilter(self):
 		selection = []
 		for mechanism in self.ui.mechaniclist.selectedItems():
 			selection.append(mechanism.text())
 		CollectionFilter.mechanicfilter(selection)
-		CollectionFilter.combinefilters()
-		self.populateTable()
+		self.updateUI()
 		
 	def categoryFilter(self):
 		selection = []
 		for category in self.ui.categorylist.selectedItems():
 			selection.append(category.text())
 		CollectionFilter.categoryfilter(selection)
-		CollectionFilter.combinefilters()
-		self.populateTable()
+		self.updateUI()
 
 	def downloadData(self):
-		prog = QProgressDialog("Downloading...", "Cancel", 0, 300)#, QWidget parent = None, Qt.WindowFlags flags = 0)
-		#downloadCollection()
-		CollectionFilter.loadCollection()
-		CollectionFilter.resetAllFilters()
-		#need a 'reset ui' function
-		self.populateTable()
-		
+		ret = QMessageBox.information(self, "Download", "Be warned, this locks up the screen for a good 10 mins.  Continue?",QMessageBox.Ok | QMessageBox.Cancel)
+		if ret == QMessageBox.Ok:
+			print("downloading")
+			downloadCollection()
+			CollectionFilter.loadCollection()
+			CollectionFilter.resetAllFilters()
+			#need a 'reset ui' function
+			self.updateUI()
 	
 if __name__ == "__main__":
 	app = QApplication(sys.argv)
