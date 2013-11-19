@@ -32,6 +32,14 @@ class boardgamedict(dict):
 		else:
 			return 0
 
+	def suggestedPlayerCountVoteRaw(self,playercount,votetype='Best'):
+		if playercount in self['suggestedplayercount'].keys():
+			bestvotes = self['suggestedplayercount'][playercount][votetype]
+			totalvotes = self['suggestedplayercount']['totalvotes']
+			return str(bestvotes) + " / " + str(totalvotes)
+		else:
+			return 0
+
 	def isBestWith(self,playercount,votetolerance=50):
 		if self.suggestedPlayerCountVote(int(playercount),'Best') >= votetolerance:
 			return True

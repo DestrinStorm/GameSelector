@@ -1,4 +1,4 @@
-select best or recommended then deselect player count =- broken
+select playercount to end up with null themes is broken
 
 1280x720
 

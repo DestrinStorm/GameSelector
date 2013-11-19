@@ -8,6 +8,8 @@ import CollectionFilter
 
 class DetailPopup(QDialog, Ui_GameDetail):
 
+	NUMPLAYERS, BEST, RECOMMENDED, NOTRECOMMENDED, TOTAL = range(5)
+
 	def __init__(self,bggid,parent=None):
 		super(DetailPopup,self).__init__(parent)
 		self.ui=Ui_GameDetail()
@@ -16,6 +18,29 @@ class DetailPopup(QDialog, Ui_GameDetail):
 		self.ui.imageDisplay.setHtml("...Loading image...")
 		self.ui.imageDisplay.load(QUrl(CollectionFilter.bgcollection[bggid]["thumbnail"]))
 		self.ui.closeButton.clicked.connect(self.done)
+		self.ui.votingData.clear()
+		self.ui.votingData.setSortingEnabled(False)
+		#replace headers - clear() deletes them :(
+		headers = ["Players", "Best", "Recommended", "Not Recommended", "Total"]
+		self.ui.votingData.setHorizontalHeaderLabels(headers)
+		#fetch voting data and populate table
+		#clunky arsed way to get the suggestedplayercount values
+		playercountlist = list(CollectionFilter.bgcollection[bggid]['suggestedplayercount'].keys())
+		playercountlist.remove('totalvotes')
+		self.ui.votingData.setRowCount(len(playercountlist))
+		for row,playercount in enumerate(playercountlist):
+			#numplayers column
+			item = QTableWidgetItem(playercount)
+			self.ui.votingData.setItem(row, self.NUMPLAYERS, item)
+			#Best votes column
+			#print(playercount)
+			item = QTableWidgetItem(CollectionFilter.bgcollection[bggid].suggestedPlayerCountVoteRaw(playercount,'Best'))
+			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+			self.ui.votingData.setItem(row, self.BEST, item)
+		#reenable sorting
+		self.ui.votingData.setSortingEnabled(True)
+		#TODO: kinda want to keep track of whatever the 'current' sort is
+		self.ui.votingData.sortItems(self.NUMPLAYERS)
 
 class MainForm(QMainWindow, Ui_GameSelector):
 
@@ -120,7 +145,6 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.bgcollectionView.setSortingEnabled(False)
 		#replace headers - clear() deletes them :(
 		headers = ["Name", "Min.\nPlayers", "Max.\nPlayers", "Playing\nTime"]
-		self.ui.bgcollectionView.setColumnCount(len(headers))
 		self.ui.bgcollectionView.setHorizontalHeaderLabels(headers)
 		#get the filtered list length and start populating
 		self.ui.bgcollectionView.setRowCount(len(CollectionFilter.filteredset))
