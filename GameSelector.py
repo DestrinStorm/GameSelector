@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Mon Nov 18 11:46:28 2013
+# Created: Tue Nov 19 14:21:02 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!

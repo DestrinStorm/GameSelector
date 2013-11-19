@@ -3,7 +3,19 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from GameSelector import *
 from bggdata import *
+from GameDetail import *
 import CollectionFilter
+
+class DetailPopup(QDialog, Ui_GameDetail):
+
+	def __init__(self,bggid,parent=None):
+		super(DetailPopup,self).__init__(parent)
+		self.ui=Ui_GameDetail()
+		self.ui.setupUi(self)
+		self.ui.description.setHtml(CollectionFilter.bgcollection[bggid]["description"])
+		self.ui.imageDisplay.setHtml("...Loading image...")
+		self.ui.imageDisplay.load(QUrl(CollectionFilter.bgcollection[bggid]["thumbnail"]))
+		self.ui.closeButton.clicked.connect(self.done)
 
 class MainForm(QMainWindow, Ui_GameSelector):
 
@@ -54,6 +66,8 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		#wire up the list items
 		self.ui.mechaniclist.itemClicked.connect(lambda: self.mechanicFilter())
 		self.ui.categorylist.itemClicked.connect(lambda: self.categoryFilter())
+		#wire the boardgame table up to the details popup
+		self.ui.bgcollectionView.itemClicked.connect(lambda: self.showdetails(self.ui.bgcollectionView.item(self.ui.bgcollectionView.currentRow(),self.NAME).data(Qt.UserRole)))
 		#and finally link in the admin screen
 		self.ui.downloadData.clicked.connect(lambda: self.downloadData())		
 		#size/format overrides not easily configurable from QTDesigner
@@ -217,6 +231,11 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			CollectionFilter.resetAllFilters()
 			#need a 'reset ui' function
 			self.updateUI()
+
+	def showdetails(self,selectedgameid):
+		#display the details dialog, passing in the BGGID of the selected game
+		dlg = DetailPopup(selectedgameid)
+		dlg.exec_()
 	
 if __name__ == "__main__":
 	app = QApplication(sys.argv)

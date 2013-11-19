@@ -1,1 +1,2 @@
-"C:\Python33\Lib\site-packages\PyQt4\pyuic4.bat" "C:\Dropbox\Coding\GameSelector\GameSelector.ui" -o GameSelector.py
+call "C:\Python33\Lib\site-packages\PyQt4\pyuic4.bat" "C:\Dropbox\Coding\GameSelector\GameSelector.ui" -o GameSelector.py
+call "C:\Python33\Lib\site-packages\PyQt4\pyuic4.bat" "C:\Dropbox\Coding\GameSelector\GameDetail.ui" -o GameDetail.py
