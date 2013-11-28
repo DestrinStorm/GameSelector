@@ -9,4 +9,4 @@
 #Dominion player count override
 36218,maxplayers,6
 #Lords of waterdeep player count override
-110327,maxplayers,6
+#110327,maxplayers,6

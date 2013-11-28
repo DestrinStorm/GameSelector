@@ -1,11 +1,65 @@
 import sys
+import pickle
+import xml.etree.ElementTree as etree
+from urllib.request import urlopen
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from GameSelector import *
-from bggdata import *
 from GameDetail import *
-import CollectionFilter
 
+#Define the boardgame class
+#Extend dictionary and assign the appropriate data to preset key names
+class boardgamedict(dict):
+	def __init__(self, ID, name, minplayers, maxplayers, playingtime, description='', thumbnail='', image='', suggestedplayercount=dict(),categories=list(),mechanics=list()):
+		dict.__init__({})
+		self["ID"] = int(ID)
+		self["name"] = name
+		self["minplayers"] = int(minplayers)
+		self["maxplayers"] = int(maxplayers)
+		self["playingtime"] = int(playingtime)
+		self["description"] = description
+		self["thumbnail"] = thumbnail
+		self["image"] = image
+		self["suggestedplayercount"] = suggestedplayercount
+		self["categories"] = categories
+		self["mechanics"] = mechanics
+
+	def suggestedPlayerCountVote(self,playercount,votetype='Best'):
+		if playercount in self['suggestedplayercount'].keys():
+			bestvotes = self['suggestedplayercount'][playercount][votetype]
+			totalvotes = self['suggestedplayercount']['totalvotes']
+			if totalvotes == 0:
+				#no votes yet :(
+				return 0
+			percentage = (bestvotes / totalvotes) * 100
+			return round(percentage)
+		else:
+			return 0
+
+	def suggestedPlayerCountVoteRaw(self,playercount,votetype='Best'):
+		if playercount in self['suggestedplayercount'].keys():
+			bestvotes = self['suggestedplayercount'][playercount][votetype]
+			totalvotes = self['suggestedplayercount']['totalvotes']
+			return str(bestvotes) + " / " + str(totalvotes)
+		else:
+			return 0
+
+	def isBestWith(self,playercount,votetolerance=50):
+		if self.suggestedPlayerCountVote(int(playercount),'Best') >= votetolerance:
+			return True
+		else:
+			return False
+
+	def isRecommendedWith(self,playercount,votetolerance=50):
+                #Sweeping assumption that we accept 'best' votes if we are looking for 'recommended' votes
+		if self.suggestedPlayerCountVote(int(playercount),'Best') >= votetolerance:
+			return True
+		else:
+			if self.suggestedPlayerCountVote(int(playercount),'Recommended') >= votetolerance:
+				return True
+		return False
+
+#Define classes for the UI elements
 class DetailPopup(QDialog, Ui_GameDetail):
 
 	NUMPLAYERS, BEST, RECOMMENDED, NOTRECOMMENDED, TOTAL = range(5)
@@ -14,9 +68,9 @@ class DetailPopup(QDialog, Ui_GameDetail):
 		super(DetailPopup,self).__init__(parent)
 		self.ui=Ui_GameDetail()
 		self.ui.setupUi(self)
-		self.ui.description.setHtml(CollectionFilter.bgcollection[bggid]["description"])
+		self.ui.description.setHtml(bgcollection[bggid]["description"])
 		self.ui.imageDisplay.setHtml("...Loading image...")
-		self.ui.imageDisplay.load(QUrl(CollectionFilter.bgcollection[bggid]["thumbnail"]))
+		self.ui.imageDisplay.load(QUrl(bgcollection[bggid]["thumbnail"]))
 		self.ui.closeButton.clicked.connect(self.done)
 		self.ui.votingData.clear()
 		self.ui.votingData.setSortingEnabled(False)
@@ -25,7 +79,7 @@ class DetailPopup(QDialog, Ui_GameDetail):
 		self.ui.votingData.setHorizontalHeaderLabels(headers)
 		#fetch voting data and populate table
 		#clunky arsed way to get the suggestedplayercount values
-		playercountlist = list(CollectionFilter.bgcollection[bggid]['suggestedplayercount'].keys())
+		playercountlist = list(bgcollection[bggid]['suggestedplayercount'].keys())
 		playercountlist.remove('totalvotes')
 		self.ui.votingData.setRowCount(len(playercountlist))
 		for row,playercount in enumerate(playercountlist):
@@ -34,7 +88,7 @@ class DetailPopup(QDialog, Ui_GameDetail):
 			self.ui.votingData.setItem(row, self.NUMPLAYERS, item)
 			#Best votes column
 			#print(playercount)
-			item = QTableWidgetItem(CollectionFilter.bgcollection[bggid].suggestedPlayerCountVoteRaw(playercount,'Best'))
+			item = QTableWidgetItem(bgcollection[bggid].suggestedPlayerCountVoteRaw(playercount,'Best'))
 			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
 			self.ui.votingData.setItem(row, self.BEST, item)
 		#reenable sorting
@@ -108,7 +162,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.updateUI()
 
 	def updateUI(self):
-		CollectionFilter.combinefilters()
+		combinefilters()
 		self.populateLists()
 		self.populateTable()		
 
@@ -120,7 +174,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			selection.append(mechanism.text())
 		#that is stored, clear and repopulate
 		self.ui.mechaniclist.clear()
-		for mechanic in CollectionFilter.mechanics:
+		for mechanic in mechanics:
 			self.ui.mechaniclist.addItem(mechanic)
 		self.ui.mechaniclist.sortItems()
 		#now reselect previously selected items
@@ -132,7 +186,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		for category in self.ui.categorylist.selectedItems():
 			selection.append(category.text())
 		self.ui.categorylist.clear()
-		for category in CollectionFilter.categories:
+		for category in categories:
 			self.ui.categorylist.addItem(category)
 		self.ui.categorylist.sortItems()
 		for category in selection:
@@ -147,22 +201,22 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		headers = ["Name", "Min.\nPlayers", "Max.\nPlayers", "Playing\nTime"]
 		self.ui.bgcollectionView.setHorizontalHeaderLabels(headers)
 		#get the filtered list length and start populating
-		self.ui.bgcollectionView.setRowCount(len(CollectionFilter.filteredset))
-		for row, boardgame in enumerate(CollectionFilter.filteredset):
+		self.ui.bgcollectionView.setRowCount(len(filteredset))
+		for row, boardgame in enumerate(filteredset):
 			#name column
-			item = QTableWidgetItem(CollectionFilter.bgcollection[boardgame]["name"])
-			item.setData(Qt.UserRole, CollectionFilter.bgcollection[boardgame]["ID"])
+			item = QTableWidgetItem(bgcollection[boardgame]["name"])
+			item.setData(Qt.UserRole, bgcollection[boardgame]["ID"])
 			self.ui.bgcollectionView.setItem(row, self.NAME, item)
 			#minplayers column
-			item = QTableWidgetItem(str.rjust(str(CollectionFilter.bgcollection[boardgame]["minplayers"]),2))
+			item = QTableWidgetItem(str.rjust(str(bgcollection[boardgame]["minplayers"]),2))
 			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
 			self.ui.bgcollectionView.setItem(row, self.MINPLAYERS, item)
 			#maxplayers column
-			item = QTableWidgetItem(str.rjust(str(CollectionFilter.bgcollection[boardgame]["maxplayers"]),2))
+			item = QTableWidgetItem(str.rjust(str(bgcollection[boardgame]["maxplayers"]),2))
 			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
 			self.ui.bgcollectionView.setItem(row, self.MAXPLAYERS, item)
 			#playingtime column
-			item = QTableWidgetItem(str.rjust(str(CollectionFilter.bgcollection[boardgame]["playingtime"]),3))
+			item = QTableWidgetItem(str.rjust(str(bgcollection[boardgame]["playingtime"]),3))
 			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
 			self.ui.bgcollectionView.setItem(row, self.PLAYTIME, item)
 		#reenable sorting
@@ -174,7 +228,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 
 	def playerFilter(self,numplayers,button):
 		if button.isChecked():
-			CollectionFilter.numplayerfilter(numplayers)
+			numplayerfilter(numplayers)
 			turnoffset = self.playercountbuttonset.difference({button})
 			for button in turnoffset:
 				button.setChecked(False)
@@ -185,8 +239,8 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			self.ui.recommendedButton.setChecked(False)
 			self.ui.bestButton.setEnabled(False)
 			self.ui.recommendedButton.setEnabled(False)
-			CollectionFilter.resetplayerfilter()
-			CollectionFilter.resetsuggestedfilter()
+			resetplayerfilter()
+			resetsuggestedfilter()
 			self.updateUI()
 		#are the suggested voting filters on?
 		if self.ui.bestButton.isChecked():
@@ -203,10 +257,10 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			for playercountbutton in self.playercountbuttonset:
 				if playercountbutton.isChecked():
 					numplayers = playercountbutton.text()		
-			CollectionFilter.suggestedbestplayercountfilter(numplayers)
+			suggestedbestplayercountfilter(numplayers)
 			self.ui.recommendedButton.setChecked(False)
 		else:
-			CollectionFilter.resetsuggestedfilter()
+			resetsuggestedfilter()
 		self.updateUI()
 
 	def recommendedFilter(self,button):
@@ -216,34 +270,34 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			for playercountbutton in self.playercountbuttonset:
 				if playercountbutton.isChecked():
 					numplayers = playercountbutton.text()		
-			CollectionFilter.suggestedrecommendedplayercountfilter(numplayers)
+			suggestedrecommendedplayercountfilter(numplayers)
 			self.ui.bestButton.setChecked(False)
 		else:
-			CollectionFilter.resetsuggestedfilter()
+			resetsuggestedfilter()
 		self.updateUI()	
 			
 	def playtimeFilter(self,playtime,button):
 		if button.isChecked():
-			CollectionFilter.playtimefilter(playtime)
+			playtimefilter(playtime)
 			turnoffset = self.playtimebuttonset.difference({button})
 			for button in turnoffset:
 				button.setChecked(False)
 		else:
-			CollectionFilter.resetplaytimefilter()
+			resetplaytimefilter()
 		self.updateUI()
 
 	def mechanicFilter(self):
 		selection = []
 		for mechanism in self.ui.mechaniclist.selectedItems():
 			selection.append(mechanism.text())
-		CollectionFilter.mechanicfilter(selection)
+		mechanicfilter(selection)
 		self.updateUI()
 		
 	def categoryFilter(self):
 		selection = []
 		for category in self.ui.categorylist.selectedItems():
 			selection.append(category.text())
-		CollectionFilter.categoryfilter(selection)
+		categoryfilter(selection)
 		self.updateUI()
 
 	def downloadData(self):
@@ -251,8 +305,8 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		if ret == QMessageBox.Ok:
 			print("downloading")
 			downloadCollection()
-			CollectionFilter.loadCollection()
-			CollectionFilter.resetAllFilters()
+			loadCollection()
+			resetAllFilters()
 			#need a 'reset ui' function
 			self.updateUI()
 
@@ -260,7 +314,231 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		#display the details dialog, passing in the BGGID of the selected game
 		dlg = DetailPopup(selectedgameid)
 		dlg.exec_()
+
+#main execution starts here
+#Initialisations - globalise bgcollection otherwise I can't modify it in the override loop
+global bgcollection
+bgcollection = dict()
+
+#Define the DownloadCollection function
+#Downloads data from BGG and pickles it to disk for later use by the loadCollection() function
+def downloadCollection(username="Darke"):
+	#Initialisations
+	collection_url=("http://www.boardgamegeek.com/xmlapi2/collection?username="+username+"&wanttoplay=1")
+	#BGG XMLAPI2 URL for boardgame data)
+	BGDataURL = "http://www.boardgamegeek.com/xmlapi2/thing?id="
+	#temp list to hold the IDs from the collection
+	bgcollectionids = []
+	#Master dictionary, index by BGGID
+	bgcollection = dict()
+
+	#Fetch the 'want to play' collection XML, fill the objectiddict with it
+	with urlopen(collection_url) as collection_xml:
+		collectiontree = etree.parse(collection_xml)
+		collectionroot = collectiontree.getroot()
+		#Stuff all those BGGIDs into a temp list
+		for each_child in collectionroot:
+			#All we get is the ID here, put it in a temporary list
+			bgcollectionids.append(int(each_child.attrib['objectid']))
+
+	#Now we have the IDs we can iterate the BGGame data XML to populate our objects
+	#Once for each ID in the downloaded collection 
+	for each_objectid in bgcollectionids:
+		#Fetch the Game Data XML
+		with urlopen(BGDataURL+str(each_objectid)) as objectxml:
+			objecttree = etree.parse(objectxml)
+			objectroot = objecttree.getroot()
+			#There can be multiple names, but it looks lime the primary name is always index 0
+			name = objectroot[0].find('name').attrib['value']
+			minplayers = int(objectroot[0].find('minplayers').attrib['value'])
+			maxplayers = int(objectroot[0].find('maxplayers').attrib['value'])
+			playingtime = int(objectroot[0].find('playingtime').attrib['value'])
+			description = objectroot[0].find('description').text
+			thumbnail = objectroot[0].find('thumbnail').text
+			image = objectroot[0].find('image').text
+			#Overly elaborate nested loop structure for fishing out the suggested player count data
+			suggestedplayercount = dict()
+			#Loop through each poll (there are typically 3)
+			for each_poll in objectroot[0].findall('poll'):
+				#Have we found 'suggested_numplayers?' (as opposed to language dependence or suggested player age)
+				if (each_poll.attrib['name'] == 'suggested_numplayers'):
+					#Fetch the total unique voters for all player counts
+					suggestedplayercount['totalvotes'] = int(each_poll.attrib['totalvotes'])
+					#Loop through each sub poll (one for each player count)
+					for each_numplayerpoll in each_poll.getchildren():
+						#Which numplayers subpoll is this?
+						numplayers = each_numplayerpoll.attrib['numplayers']
+						#Does it end with a +? Don't bother progressing if it does
+						if not numplayers.endswith('+'):
+							#The + has gone - we can safely int() this now :)
+							numplayers = int(numplayers)
+							#Check we are within the min and max player counts - we don't care about votes outside of that
+							if (numplayers >= minplayers) and (numplayers <= maxplayers):
+								voteresults = dict()
+								#For each vote answer (best, recommended, not recommended) store the name and the vote count)
+								for each_voteanswer in each_numplayerpoll.getchildren():
+									voteresults[each_voteanswer.attrib['value']] = int(each_voteanswer.attrib['numvotes'])
+								#Put the results of this subpoll into the dictionary, keyed by the number of players
+								suggestedplayercount[numplayers] = voteresults		
+			#Parse categories and mechanics
+			categories = list()
+			mechanics = list()
+			for each_link in objectroot[0].findall('link'):
+				#is this a category?
+				if (each_link.attrib['type'] == 'boardgamecategory'):
+					categories.append(each_link.attrib['value'])
+				#if it's not a category - is it a mechanic?
+				elif (each_link.attrib['type'] == 'boardgamemechanic'):
+					mechanics.append(each_link.attrib['value'])
+			#Create the boardgame object, shove it in the collection dict
+			bgcollection[each_objectid] = boardgamedict(each_objectid,name,minplayers,maxplayers,playingtime,description,thumbnail,image,suggestedplayercount,categories,mechanics)
+
+	#Pickle the lot to disk for later use
+	try:
+		with open('collection.pickle', 'wb') as bgcollectionf:
+			pickle.dump(bgcollection,bgcollectionf)
+	except IOError as err:
+		print('File error: ' + str(err))
+	except pickle.PickleError as perr:
+		print('Pickling error: ' + str(perr))
+
+def loadCollection():
+	global bgcollection
+	#Load collection from disk
+	try:
+		with open('collection.pickle', 'rb') as bgcollectionf:
+			bgcollection = pickle.load(bgcollectionf)
+	except IOError as err:
+		print('File error: ' + str(err))
+	except pickle.PickleError as perr:
+		print('Pickling error: ' + str(perr))
+		
+	#Load local overrides
+	try:
+		with open('LocalOverrides.txt', 'r') as overridesf:
+			for each_line in overridesf:
+				#ignore comment lines
+				if not each_line.startswith('#'):
+					(bgid,key,value) = each_line.split(',')
+					try:
+						bgcollection[int(bgid)][key] = int(value)
+					except ValueError:
+						bgcollection[int(bgid)][key] = value
+	except IOError as err:
+		print('File error: ' + str(err))
+
+#initial load
+loadCollection()
+#Get all known mechanics and categories into sets
+allmechanics = set()
+allcategories = set()
+for BGID in bgcollection.keys():
+	for mechanic in bgcollection[BGID]['mechanics']:
+		allmechanics.add(mechanic)
+	for category in bgcollection[BGID]['categories']:
+		allcategories.add(category)
+#Initialise filters - create them all as 'complete set' to start with
+allbgids = set(bgcollection.keys())
+filteredset = allbgids
+numplayerset = allbgids
+playtimeset = allbgids
+suggestedbestset = allbgids
+mechanicset = allbgids
+categoryset = allbgids
+#filters for the selection lists
+mechanics = allmechanics
+categories = allcategories	
+
+def resetAllFilters():
+	resetplayerfilter()
+	resetplaytimefilter()
+	resetsuggestedfilter()
+	resetmechanicfilter()
+	resetcategoryfilter()
+	combinefilters()
 	
+def resetplayerfilter():
+	global numplayerset
+	numplayerset = allbgids
+	
+def numplayerfilter(numplayers):
+	global numplayerset
+	numplayerset = set([BGID for BGID in bgcollection.keys() if bgcollection[BGID]['minplayers'] <= numplayers <= bgcollection[BGID]['maxplayers']])
+
+def resetplaytimefilter():
+	global playtimeset
+	playtimeset = allbgids
+
+def playtimefilter(playtime):
+	global playtimeset
+	playtimeset = set([BGID for BGID in bgcollection.keys() if bgcollection[BGID]['playingtime'] <= playtime])
+
+def resetsuggestedfilter():
+	global suggestedbestset
+	suggestedbestset = allbgids
+	
+def suggestedbestplayercountfilter(numplayers,votetolerance=50):
+	global suggestedbestset
+	suggestedbestset = set([BGID for BGID in bgcollection.keys() if bgcollection[BGID].isBestWith(numplayers,votetolerance)])
+
+def suggestedrecommendedplayercountfilter(numplayers,votetolerance=50):
+	global suggestedbestset
+	suggestedbestset = set([BGID for BGID in bgcollection.keys() if bgcollection[BGID].isRecommendedWith(numplayers,votetolerance)])                
+
+def resetmechanicfilter():
+	global mechanicset
+	mechanicset = allbgids
+
+def mechanicfilter(mechaniclist):
+	global mechanicset
+	bgidset = set()
+	for BGID in allbgids:
+		#Counter to check matching number of mechanics
+		mechcount = 0
+		for mechanic in mechaniclist:
+			if mechanic in bgcollection[BGID]['mechanics']:
+				mechcount += 1
+		#number of matches = number of passed mechanics?
+		if mechcount == len(mechaniclist):
+			bgidset.add(BGID)
+	mechanicset = bgidset
+
+def resetcategoryfilter():
+	global categoryset
+	categoryset = allbgids
+
+def categoryfilter(categorylist):
+	global categoryset
+	bgidset = set()
+	for BGID in bgcollection.keys():
+		#Counter to check matching number of categories
+		catcount = 0
+		for category in categorylist:
+			if category in bgcollection[BGID]['categories']:
+				catcount += 1
+		#number of matches = number of passed categories?
+		if catcount == len(categorylist):
+			bgidset.add(BGID)
+	categoryset = bgidset
+
+def combinefilters():
+	global filteredset,numplayerset,playtimeset,suggestedbestset,mechanicset,categoryset,mechanics,categories
+	filteredset = set.intersection(numplayerset,playtimeset,suggestedbestset,mechanicset,categoryset)
+	#strip down the mechanics list to match the newly filtered set of games
+	#first, check if we're filtering at all
+	if len(filteredset) == len(allbgids):
+		#nope, reset them to 'all'
+		mechanics = allmechanics
+		categories = allcategories
+	else:
+		mechanics = set()
+		categories = set()
+		for BGID in filteredset:
+			for mechanic in bgcollection[BGID]['mechanics']:
+				mechanics.add(mechanic)
+			for category in bgcollection[BGID]['categories']:
+				categories.add(category)
+				
 if __name__ == "__main__":
 	app = QApplication(sys.argv)
 	form = MainForm()
