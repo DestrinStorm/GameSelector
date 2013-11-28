@@ -68,6 +68,7 @@ class DetailPopup(QDialog, Ui_GameDetail):
 		super(DetailPopup,self).__init__(parent)
 		self.ui=Ui_GameDetail()
 		self.ui.setupUi(self)
+		self.ui.bgName.setText(bgcollection[bggid]["name"])
 		self.ui.description.setHtml(bgcollection[bggid]["description"])
 		self.ui.imageDisplay.setHtml("...Loading image...")
 		self.ui.imageDisplay.load(QUrl(bgcollection[bggid]["thumbnail"]))
@@ -163,8 +164,30 @@ class MainForm(QMainWindow, Ui_GameSelector):
 
 	def updateUI(self):
 		combinefilters()
+		self.reconfigurebuttons()
 		self.populateLists()
-		self.populateTable()		
+		self.populateTable()
+
+	def reconfigurebuttons(self):
+		#reconfigures the playercount and playtime buttons to match any selections elsewhere
+		#key goal here is that we need to make it impossible to choose a player count that would
+		#make a currently selected mechanicm or theme disappear
+		#fetch the min and max player count from the current filtered list
+		minplayers = 9
+		maxplayers = 2
+		for bgid in filteredset:
+			if bgcollection[bgid]["minplayers"] < minplayers:
+				minplayers = bgcollection[bgid]["minplayers"]
+			if bgcollection[bgid]["maxplayers"] > maxplayers:
+				maxplayers = bgcollection[bgid]["maxplayers"]
+		#now to en/disable buttons below minplayers and above maxplayers
+		for number in range(2,10):
+			if number < minplayers:
+				exec('self.ui.Btn'+str(number)+'Player.setDisabled(True)')
+			elif number > maxplayers:
+				exec('self.ui.Btn'+str(number)+'Player.setDisabled(True)')
+			else:
+				exec('self.ui.Btn'+str(number)+'Player.setDisabled(False)')
 
 	def populateLists(self):
 		#populate mechanic/category lists with values
@@ -203,6 +226,8 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		#get the filtered list length and start populating
 		self.ui.bgcollectionView.setRowCount(len(filteredset))
 		for row, boardgame in enumerate(filteredset):
+			#set row height
+			self.ui.bgcollectionView.setRowHeight(row,55)
 			#name column
 			item = QTableWidgetItem(bgcollection[boardgame]["name"])
 			item.setData(Qt.UserRole, bgcollection[boardgame]["ID"])

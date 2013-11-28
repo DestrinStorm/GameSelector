@@ -19,9 +19,9 @@
   <widget class="QPushButton" name="closeButton">
    <property name="geometry">
     <rect>
-     <x>990</x>
+     <x>910</x>
      <y>510</y>
-     <width>75</width>
+     <width>150</width>
      <height>75</height>
     </rect>
    </property>
@@ -44,10 +44,10 @@
   <widget class="QWebView" name="imageDisplay">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>500</width>
-     <height>200</height>
+     <x>10</x>
+     <y>50</y>
+     <width>281</width>
+     <height>241</height>
     </rect>
    </property>
    <property name="url">
@@ -59,10 +59,10 @@
   <widget class="QWebView" name="description">
    <property name="geometry">
     <rect>
-     <x>530</x>
-     <y>0</y>
+     <x>560</x>
+     <y>50</y>
      <width>500</width>
-     <height>200</height>
+     <height>451</height>
     </rect>
    </property>
    <property name="url">
@@ -74,10 +74,10 @@
   <widget class="QTableWidget" name="votingData">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>260</y>
+     <x>10</x>
+     <y>300</y>
      <width>521</width>
-     <height>291</height>
+     <height>221</height>
     </rect>
    </property>
    <property name="columnCount">
@@ -88,6 +88,33 @@
    <column/>
    <column/>
    <column/>
+  </widget>
+  <widget class="QLabel" name="bgName">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>2</y>
+     <width>1061</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>22</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Ticket to Ride Map Collection: Volume 1 - Team Asia &amp; Legendary Asia</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::PlainText</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
  </widget>
  <customwidgets>
