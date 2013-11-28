@@ -568,6 +568,6 @@ if __name__ == "__main__":
 	app = QApplication(sys.argv)
 	form = MainForm()
 	#Dis/Enable next line for frameless
-	#form.setWindowFlags(form.windowFlags() | QtCore.Qt.FramelessWindowHint)
+	form.setWindowFlags(form.windowFlags() | QtCore.Qt.FramelessWindowHint)
 	form.showMaximized()
 	sys.exit(app.exec_())
