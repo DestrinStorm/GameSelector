@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Mon Dec  2 17:04:01 2013
+# Created: Mon Dec  2 17:12:22 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,7 +35,8 @@ class Ui_GameSelector(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.bgcollectionView.setFont(font)
-        self.bgcollectionView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.bgcollectionView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
+        self.bgcollectionView.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.bgcollectionView.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.bgcollectionView.setAlternatingRowColors(True)
         self.bgcollectionView.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
@@ -45,7 +46,7 @@ class Ui_GameSelector(object):
         self.bgcollectionView.setObjectName(_fromUtf8("bgcollectionView"))
         self.bgcollectionView.horizontalHeader().setDefaultSectionSize(50)
         self.bgcollectionView.horizontalHeader().setMinimumSectionSize(1)
-        self.bgcollectionView.horizontalHeader().setSortIndicatorShown(False)
+        self.bgcollectionView.horizontalHeader().setSortIndicatorShown(True)
         self.bgcollectionView.verticalHeader().setVisible(False)
         self.lcdResults = QtGui.QLCDNumber(self.centralwidget)
         self.lcdResults.setGeometry(QtCore.QRect(459, 185, 60, 35))
@@ -220,6 +221,7 @@ class Ui_GameSelector(object):
         font = QtGui.QFont()
         font.setPointSize(22)
         self.mechaniclist.setFont(font)
+        self.mechaniclist.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.mechaniclist.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
         self.mechaniclist.setObjectName(_fromUtf8("mechaniclist"))
         self.tabbedzone.addTab(self.mechtab, _fromUtf8(""))
