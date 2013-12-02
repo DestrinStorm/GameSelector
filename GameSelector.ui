@@ -562,7 +562,7 @@
       <x>5</x>
       <y>185</y>
       <width>520</width>
-      <height>474</height>
+      <height>470</height>
      </rect>
     </property>
     <property name="font">
@@ -574,7 +574,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="mechtab">
      <attribute name="title">
@@ -586,7 +586,7 @@
         <x>-1</x>
         <y>-1</y>
         <width>516</width>
-        <height>431</height>
+        <height>426</height>
        </rect>
       </property>
       <property name="font">
@@ -618,7 +618,7 @@
         <x>-1</x>
         <y>-1</y>
         <width>516</width>
-        <height>431</height>
+        <height>426</height>
        </rect>
       </property>
       <property name="font">
