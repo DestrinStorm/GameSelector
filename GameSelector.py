@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Mon Dec  2 17:34:55 2013
+# Created: Mon Dec  2 17:40:46 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,11 +27,11 @@ class Ui_GameSelector(object):
     def setupUi(self, GameSelector):
         GameSelector.setObjectName(_fromUtf8("GameSelector"))
         GameSelector.setEnabled(True)
-        GameSelector.resize(1185, 658)
+        GameSelector.resize(1185, 630)
         self.centralwidget = QtGui.QWidget(GameSelector)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.bgcollectionView = QtGui.QTableWidget(self.centralwidget)
-        self.bgcollectionView.setGeometry(QtCore.QRect(525, 0, 660, 658))
+        self.bgcollectionView.setGeometry(QtCore.QRect(525, 0, 660, 628))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.bgcollectionView.setFont(font)
@@ -208,7 +208,7 @@ class Ui_GameSelector(object):
         self.Btn300mins.setCheckable(True)
         self.Btn300mins.setObjectName(_fromUtf8("Btn300mins"))
         self.tabbedzone = QtGui.QTabWidget(self.centralwidget)
-        self.tabbedzone.setGeometry(QtCore.QRect(5, 185, 520, 470))
+        self.tabbedzone.setGeometry(QtCore.QRect(5, 185, 520, 444))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.tabbedzone.setFont(font)
@@ -217,7 +217,7 @@ class Ui_GameSelector(object):
         self.mechtab = QtGui.QWidget()
         self.mechtab.setObjectName(_fromUtf8("mechtab"))
         self.mechaniclist = QtGui.QListWidget(self.mechtab)
-        self.mechaniclist.setGeometry(QtCore.QRect(-1, -1, 516, 426))
+        self.mechaniclist.setGeometry(QtCore.QRect(-1, -1, 516, 400))
         font = QtGui.QFont()
         font.setPointSize(22)
         self.mechaniclist.setFont(font)
@@ -230,7 +230,7 @@ class Ui_GameSelector(object):
         self.cattab.setObjectName(_fromUtf8("cattab"))
         self.categorylist = QtGui.QListWidget(self.cattab)
         self.categorylist.setEnabled(True)
-        self.categorylist.setGeometry(QtCore.QRect(-1, -1, 516, 426))
+        self.categorylist.setGeometry(QtCore.QRect(-1, -1, 516, 400))
         font = QtGui.QFont()
         font.setPointSize(22)
         self.categorylist.setFont(font)
@@ -252,7 +252,7 @@ class Ui_GameSelector(object):
         GameSelector.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(GameSelector)
-        self.tabbedzone.setCurrentIndex(1)
+        self.tabbedzone.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(GameSelector)
 
     def retranslateUi(self, GameSelector):
