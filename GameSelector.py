@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Mon Dec  2 17:12:22 2013
+# Created: Mon Dec  2 17:22:19 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -221,7 +221,8 @@ class Ui_GameSelector(object):
         font = QtGui.QFont()
         font.setPointSize(22)
         self.mechaniclist.setFont(font)
-        self.mechaniclist.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.mechaniclist.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
+        self.mechaniclist.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.mechaniclist.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
         self.mechaniclist.setObjectName(_fromUtf8("mechaniclist"))
         self.tabbedzone.addTab(self.mechtab, _fromUtf8(""))
@@ -257,9 +258,9 @@ class Ui_GameSelector(object):
     def retranslateUi(self, GameSelector):
         GameSelector.setWindowTitle(_translate("GameSelector", "Game Selector", None))
         self.bgcollectionView.setSortingEnabled(True)
-        self.bestButton.setText(_translate("GameSelector", "\'Best\'", None))
+        self.bestButton.setText(_translate("GameSelector", "Best", None))
         self.numplayerLabel.setText(_translate("GameSelector", "<html><head/><body><p>Players</p></body></html>", None))
-        self.recommendedButton.setText(_translate("GameSelector", "\'Recommended\'", None))
+        self.recommendedButton.setText(_translate("GameSelector", "Recommended", None))
         self.Btn2Player.setText(_translate("GameSelector", "2", None))
         self.Btn3Player.setText(_translate("GameSelector", "3", None))
         self.Btn4Player.setText(_translate("GameSelector", "4", None))

@@ -125,7 +125,7 @@
       </font>
      </property>
      <property name="text">
-      <string>'Best'</string>
+      <string>Best</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -170,7 +170,7 @@
       </font>
      </property>
      <property name="text">
-      <string>'Recommended'</string>
+      <string>Recommended</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
