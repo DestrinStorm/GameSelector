@@ -1,4 +1,5 @@
 import sys
+import os
 import pickle
 import xml.etree.ElementTree as etree
 from urllib.request import urlopen
@@ -453,6 +454,12 @@ def loadCollection():
 		print('File error: ' + str(err))
 
 #initial load
+if os.name == 'nt':
+    #Windows
+    os.chdir('C:\Dropbox\Coding\GameSelector')
+else:
+    #other
+    os.chdir('/home/pi/GameSelector')
 loadCollection()
 #Get all known mechanics and categories into sets
 allmechanics = set()
