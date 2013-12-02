@@ -247,6 +247,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			self.ui.bgcollectionView.setItem(row, self.PLAYTIME, item)
 		#reenable sorting
 		self.ui.bgcollectionView.setSortingEnabled(True)
+		self.ui.bgcollectionView.horizontalHeader().setSortIndicatorShown(False)
 		#TODO: kinda want to keep track of whatever the 'current' sort is
 		self.ui.bgcollectionView.sortItems(self.NAME)
 		#update the results LCD
