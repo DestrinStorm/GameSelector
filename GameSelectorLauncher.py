@@ -133,8 +133,6 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.Btn120mins.clicked.connect(lambda: self.playtimeFilter(120,self.ui.Btn120mins))
 		self.ui.Btn150mins.clicked.connect(lambda: self.playtimeFilter(150,self.ui.Btn150mins))
 		self.ui.Btn180mins.clicked.connect(lambda: self.playtimeFilter(180,self.ui.Btn180mins))
-		self.ui.Btn240mins.clicked.connect(lambda: self.playtimeFilter(240,self.ui.Btn240mins))
-		self.ui.Btn300mins.clicked.connect(lambda: self.playtimeFilter(300,self.ui.Btn300mins))
 		self.playtimebuttonset = set()
 		self.playtimebuttonset.add(self.ui.Btn30mins)
 		self.playtimebuttonset.add(self.ui.Btn60mins)
