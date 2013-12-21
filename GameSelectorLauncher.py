@@ -152,10 +152,10 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.bgcollectionView.horizontalHeader().setMinimumHeight(50)
 		self.ui.mechaniclist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 75px; }")
 		self.ui.categorylist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 75px; }")
-		self.ui.bgcollectionView.setColumnWidth(self.NAME,600)
-		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,105)
-		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,105)
-		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,105)
+		self.ui.bgcollectionView.setColumnWidth(self.NAME,580)
+		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,110)
+		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,110)
+		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,110)
 		#Initial setup
 		self.updateUI()
 
@@ -201,6 +201,9 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		for mechanic in selection:
 			for item in self.ui.mechaniclist.findItems(mechanic,Qt.MatchFixedString):
 				item.setSelected(True)
+		#what feels like uncessary faff to resize rows
+		for x in range(0,len(self.ui.mechaniclist)):
+			self.ui.mechaniclist.item(x).setSizeHint(QSize(801,75))
 		#and do the same for the category list
 		selection = []
 		for category in self.ui.categorylist.selectedItems():
@@ -212,6 +215,9 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		for category in selection:
 			for item in self.ui.categorylist.findItems(category,Qt.MatchFixedString):
 				item.setSelected(True)
+		for x in range(0,len(self.ui.categorylist)):
+			self.ui.categorylist.item(x).setSizeHint(QSize(801,75))
+
 	
 	def populateTable(self):
 		#clear and disable sorting

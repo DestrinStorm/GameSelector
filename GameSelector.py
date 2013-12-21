@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Sat Dec 21 20:12:59 2013
+# Created: Sat Dec 21 20:54:34 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -203,13 +203,14 @@ class Ui_GameSelector(object):
         self.mechtab = QtGui.QWidget()
         self.mechtab.setObjectName(_fromUtf8("mechtab"))
         self.mechaniclist = QtGui.QListWidget(self.mechtab)
-        self.mechaniclist.setGeometry(QtCore.QRect(-1, -1, 801, 601))
+        self.mechaniclist.setGeometry(QtCore.QRect(-1, -1, 801, 595))
         font = QtGui.QFont()
         font.setPointSize(28)
         self.mechaniclist.setFont(font)
         self.mechaniclist.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.mechaniclist.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.mechaniclist.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
+        self.mechaniclist.setIconSize(QtCore.QSize(0, 75))
         self.mechaniclist.setObjectName(_fromUtf8("mechaniclist"))
         self.tabbedzone.addTab(self.mechtab, _fromUtf8(""))
         self.cattab = QtGui.QWidget()
