@@ -20,10 +20,10 @@
    <widget class="QTableWidget" name="bgcollectionView">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>50</y>
-      <width>660</width>
-      <height>628</height>
+      <x>940</x>
+      <y>10</y>
+      <width>961</width>
+      <height>1061</height>
      </rect>
     </property>
     <property name="font">
@@ -79,10 +79,10 @@
    <widget class="QLCDNumber" name="lcdResults">
     <property name="geometry">
      <rect>
-      <x>640</x>
-      <y>370</y>
-      <width>60</width>
-      <height>35</height>
+      <x>838</x>
+      <y>330</y>
+      <width>91</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="digitCount">
@@ -98,7 +98,7 @@
       <x>20</x>
       <y>10</y>
       <width>451</width>
-      <height>271</height>
+      <height>311</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -115,8 +115,8 @@
       <rect>
        <x>10</x>
        <y>5</y>
-       <width>71</width>
-       <height>40</height>
+       <width>100</width>
+       <height>75</height>
       </rect>
      </property>
      <property name="font">
@@ -134,15 +134,15 @@
     <widget class="QLabel" name="numplayerLabel">
      <property name="geometry">
       <rect>
-       <x>85</x>
-       <y>10</y>
-       <width>60</width>
-       <height>30</height>
+       <x>119</x>
+       <y>20</y>
+       <width>211</width>
+       <height>51</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <pointsize>20</pointsize>
       </font>
      </property>
      <property name="text">
@@ -158,10 +158,10 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>145</x>
-       <y>5</y>
+       <x>340</x>
+       <y>10</y>
        <width>100</width>
-       <height>40</height>
+       <height>75</height>
       </rect>
      </property>
      <property name="font">
@@ -180,7 +180,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>50</y>
+       <y>90</y>
        <width>100</width>
        <height>100</height>
       </rect>
@@ -201,7 +201,7 @@
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>50</y>
+       <y>90</y>
        <width>100</width>
        <height>100</height>
       </rect>
@@ -222,7 +222,7 @@
      <property name="geometry">
       <rect>
        <x>230</x>
-       <y>50</y>
+       <y>90</y>
        <width>100</width>
        <height>100</height>
       </rect>
@@ -243,7 +243,7 @@
      <property name="geometry">
       <rect>
        <x>340</x>
-       <y>50</y>
+       <y>90</y>
        <width>100</width>
        <height>100</height>
       </rect>
@@ -264,7 +264,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>160</y>
+       <y>200</y>
        <width>100</width>
        <height>100</height>
       </rect>
@@ -285,7 +285,7 @@
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>160</y>
+       <y>200</y>
        <width>100</width>
        <height>100</height>
       </rect>
@@ -306,7 +306,7 @@
      <property name="geometry">
       <rect>
        <x>230</x>
-       <y>160</y>
+       <y>200</y>
        <width>100</width>
        <height>100</height>
       </rect>
@@ -327,7 +327,7 @@
      <property name="geometry">
       <rect>
        <x>340</x>
-       <y>160</y>
+       <y>200</y>
        <width>100</width>
        <height>100</height>
       </rect>
@@ -348,10 +348,10 @@
    <widget class="QFrame" name="playTimeFrame">
     <property name="geometry">
      <rect>
-      <x>640</x>
-      <y>0</y>
-      <width>255</width>
-      <height>175</height>
+      <x>480</x>
+      <y>10</y>
+      <width>451</width>
+      <height>311</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -363,15 +363,15 @@
     <widget class="QLabel" name="PlayTimeLabel">
      <property name="geometry">
       <rect>
-       <x>75</x>
+       <x>15</x>
        <y>10</y>
-       <width>91</width>
-       <height>30</height>
+       <width>421</width>
+       <height>61</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
+       <pointsize>20</pointsize>
       </font>
      </property>
      <property name="text">
@@ -385,9 +385,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>50</y>
-       <width>55</width>
-       <height>55</height>
+       <y>90</y>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -411,10 +411,10 @@
     <widget class="QPushButton" name="Btn60mins">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>50</y>
-       <width>55</width>
-       <height>55</height>
+       <x>120</x>
+       <y>90</y>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -432,10 +432,10 @@
     <widget class="QPushButton" name="Btn90mins">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>50</y>
-       <width>55</width>
-       <height>55</height>
+       <x>230</x>
+       <y>90</y>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -453,10 +453,10 @@
     <widget class="QPushButton" name="Btn120mins">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>50</y>
-       <width>55</width>
-       <height>55</height>
+       <x>340</x>
+       <y>90</y>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -475,9 +475,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>110</y>
-       <width>55</width>
-       <height>55</height>
+       <y>200</y>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -495,10 +495,10 @@
     <widget class="QPushButton" name="Btn180mins">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>110</y>
-       <width>55</width>
-       <height>55</height>
+       <x>120</x>
+       <y>200</y>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -516,10 +516,10 @@
     <widget class="QPushButton" name="Btn240mins">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>110</y>
-       <width>55</width>
-       <height>55</height>
+       <x>230</x>
+       <y>200</y>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -537,10 +537,10 @@
     <widget class="QPushButton" name="Btn300mins">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>110</y>
-       <width>55</width>
-       <height>55</height>
+       <x>340</x>
+       <y>200</y>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -560,14 +560,14 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>310</y>
-      <width>520</width>
-      <height>444</height>
+      <y>330</y>
+      <width>911</width>
+      <height>741</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>20</pointsize>
+      <pointsize>28</pointsize>
      </font>
     </property>
     <property name="tabShape">
@@ -585,8 +585,8 @@
        <rect>
         <x>-1</x>
         <y>-1</y>
-        <width>516</width>
-        <height>400</height>
+        <width>907</width>
+        <height>685</height>
        </rect>
       </property>
       <property name="font">
@@ -617,8 +617,8 @@
        <rect>
         <x>-1</x>
         <y>-1</y>
-        <width>516</width>
-        <height>400</height>
+        <width>907</width>
+        <height>685</height>
        </rect>
       </property>
       <property name="font">
