@@ -152,14 +152,14 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		#and finally link in the admin screen
 		self.ui.downloadData.clicked.connect(lambda: self.downloadData())		
 		#size/format overrides not easily configurable from QTDesigner
-		self.ui.bgcollectionView.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 55px; }")
+		self.ui.bgcollectionView.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 75px; }")
 		self.ui.bgcollectionView.horizontalHeader().setMinimumHeight(50)
-		self.ui.mechaniclist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 55px; }")
-		self.ui.categorylist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 55px; }")
-		self.ui.bgcollectionView.setColumnWidth(self.NAME,422)
-		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,60)
-		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,60)
-		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,60)
+		self.ui.mechaniclist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 75px; }")
+		self.ui.categorylist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 75px; }")
+		self.ui.bgcollectionView.setColumnWidth(self.NAME,630)
+		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,100)
+		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,100)
+		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,100)
 		#Initial setup
 		self.updateUI()
 
