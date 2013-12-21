@@ -140,8 +140,6 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.playtimebuttonset.add(self.ui.Btn120mins)
 		self.playtimebuttonset.add(self.ui.Btn150mins)
 		self.playtimebuttonset.add(self.ui.Btn180mins)
-		self.playtimebuttonset.add(self.ui.Btn240mins)
-		self.playtimebuttonset.add(self.ui.Btn300mins)
 		#wire up the list items
 		self.ui.mechaniclist.itemClicked.connect(lambda: self.mechanicFilter())
 		self.ui.categorylist.itemClicked.connect(lambda: self.categoryFilter())
