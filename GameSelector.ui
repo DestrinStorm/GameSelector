@@ -20,8 +20,8 @@
    <widget class="QTableWidget" name="bgcollectionView">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>0</y>
+      <x>850</x>
+      <y>50</y>
       <width>660</width>
       <height>628</height>
      </rect>
@@ -79,8 +79,8 @@
    <widget class="QLCDNumber" name="lcdResults">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>185</y>
+      <x>640</x>
+      <y>370</y>
       <width>60</width>
       <height>35</height>
      </rect>
@@ -96,9 +96,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>5</y>
-      <width>255</width>
-      <height>175</height>
+      <y>10</y>
+      <width>451</width>
+      <height>271</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -181,8 +181,8 @@
       <rect>
        <x>10</x>
        <y>50</y>
-       <width>55</width>
-       <height>55</height>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -200,10 +200,10 @@
     <widget class="QPushButton" name="Btn3Player">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>120</x>
        <y>50</y>
-       <width>55</width>
-       <height>55</height>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -221,10 +221,10 @@
     <widget class="QPushButton" name="Btn4Player">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>230</x>
        <y>50</y>
-       <width>55</width>
-       <height>55</height>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -242,10 +242,10 @@
     <widget class="QPushButton" name="Btn5Player">
      <property name="geometry">
       <rect>
-       <x>190</x>
+       <x>340</x>
        <y>50</y>
-       <width>55</width>
-       <height>55</height>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -264,9 +264,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>110</y>
-       <width>55</width>
-       <height>55</height>
+       <y>160</y>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -284,10 +284,10 @@
     <widget class="QPushButton" name="Btn7Player">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>110</y>
-       <width>55</width>
-       <height>55</height>
+       <x>120</x>
+       <y>160</y>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -305,10 +305,10 @@
     <widget class="QPushButton" name="Btn8Player">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>110</y>
-       <width>55</width>
-       <height>55</height>
+       <x>230</x>
+       <y>160</y>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -326,10 +326,10 @@
     <widget class="QPushButton" name="Btn9Player">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>110</y>
-       <width>55</width>
-       <height>55</height>
+       <x>340</x>
+       <y>160</y>
+       <width>100</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -348,8 +348,8 @@
    <widget class="QFrame" name="playTimeFrame">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>5</y>
+      <x>640</x>
+      <y>0</y>
       <width>255</width>
       <height>175</height>
      </rect>
@@ -560,7 +560,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>185</y>
+      <y>310</y>
       <width>520</width>
       <height>444</height>
      </rect>

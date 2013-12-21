@@ -3,7 +3,7 @@ remove window header on details popup
 
 group 1, mode 16 = 1920x1080
 
-lxconfig: /etc/xdg/lxsession/LCDE/autostart
+lxconfig: /etc/xdg/lxsession/LXDE/autostart
 
 Ticket to Ride Map Collection: Volume 1 - Team Asia & Legendary Asia
 
