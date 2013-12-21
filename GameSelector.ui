@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1880</width>
+    <width>1868</width>
     <height>1080</height>
    </rect>
   </property>
@@ -20,15 +20,15 @@
    <widget class="QTableWidget" name="bgcollectionView">
     <property name="geometry">
      <rect>
-      <x>940</x>
+      <x>829</x>
       <y>10</y>
-      <width>930</width>
+      <width>1031</width>
       <height>1061</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>28</pointsize>
+      <pointsize>20</pointsize>
      </font>
     </property>
     <property name="verticalScrollBarPolicy">
@@ -79,7 +79,7 @@
    <widget class="QLCDNumber" name="lcdResults">
     <property name="geometry">
      <rect>
-      <x>838</x>
+      <x>730</x>
       <y>330</y>
       <width>91</width>
       <height>45</height>
@@ -350,7 +350,7 @@
      <rect>
       <x>480</x>
       <y>10</y>
-      <width>451</width>
+      <width>341</width>
       <height>311</height>
      </rect>
     </property>
@@ -453,8 +453,8 @@
     <widget class="QPushButton" name="Btn120mins">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>90</y>
+       <x>10</x>
+       <y>200</y>
        <width>100</width>
        <height>100</height>
       </rect>
@@ -474,7 +474,7 @@
     <widget class="QPushButton" name="Btn150mins">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>120</x>
        <y>200</y>
        <width>100</width>
        <height>100</height>
@@ -495,7 +495,7 @@
     <widget class="QPushButton" name="Btn180mins">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>230</x>
        <y>200</y>
        <width>100</width>
        <height>100</height>
@@ -513,55 +513,13 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="Btn240mins">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>200</y>
-       <width>100</width>
-       <height>100</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>20</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>4:00</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="Btn300mins">
-     <property name="geometry">
-      <rect>
-       <x>340</x>
-       <y>200</y>
-       <width>100</width>
-       <height>100</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>20</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>5:00</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-    </widget>
    </widget>
    <widget class="QTabWidget" name="tabbedzone">
     <property name="geometry">
      <rect>
       <x>20</x>
       <y>330</y>
-      <width>911</width>
+      <width>801</width>
       <height>741</height>
      </rect>
     </property>
@@ -574,7 +532,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="mechtab">
      <attribute name="title">

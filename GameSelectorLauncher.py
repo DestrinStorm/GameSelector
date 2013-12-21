@@ -228,7 +228,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.bgcollectionView.setRowCount(len(filteredset))
 		for row, boardgame in enumerate(filteredset):
 			#set row height
-			self.ui.bgcollectionView.setRowHeight(row,55)
+			self.ui.bgcollectionView.setRowHeight(row,75)
 			#name column
 			item = QTableWidgetItem(bgcollection[boardgame]["name"])
 			item.setData(Qt.UserRole, bgcollection[boardgame]["ID"])
