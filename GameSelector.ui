@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1868</width>
-    <height>1080</height>
+    <width>1819</width>
+    <height>992</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,10 +20,10 @@
    <widget class="QTableWidget" name="bgcollectionView">
     <property name="geometry">
      <rect>
-      <x>829</x>
+      <x>828</x>
       <y>10</y>
-      <width>990</width>
-      <height>1021</height>
+      <width>981</width>
+      <height>975</height>
      </rect>
     </property>
     <property name="font">
@@ -520,7 +520,7 @@
       <x>20</x>
       <y>330</y>
       <width>801</width>
-      <height>701</height>
+      <height>656</height>
      </rect>
     </property>
     <property name="font">
@@ -532,7 +532,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="mechtab">
      <attribute name="title">
@@ -544,7 +544,7 @@
         <x>-1</x>
         <y>-1</y>
         <width>801</width>
-        <height>595</height>
+        <height>600</height>
        </rect>
       </property>
       <property name="font">
@@ -564,7 +564,7 @@
       <property name="iconSize">
        <size>
         <width>0</width>
-        <height>75</height>
+        <height>0</height>
        </size>
       </property>
      </widget>
@@ -581,8 +581,8 @@
        <rect>
         <x>-1</x>
         <y>-1</y>
-        <width>907</width>
-        <height>685</height>
+        <width>801</width>
+        <height>600</height>
        </rect>
       </property>
       <property name="font">

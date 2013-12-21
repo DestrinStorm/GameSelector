@@ -1,11 +1,11 @@
-remove window header on details popup
-
-
 group 1, mode 16 = 1920x1080
 
 lxconfig: /etc/xdg/lxsession/LXDE/autostart
 
-Ticket to Ride Map Collection: Volume 1 - Team Asia & Legendary Asia
+Family:
+like mechanic but called boardgamecategory, fetch value
+
+
 
 
 BGG XML API URLs
@@ -18,50 +18,3 @@ Adding &brief = 1 loses the image and thumbnail entries
 http://www.boardgamegeek.com/xmlapi2/thing?id=XXXXX
 Returns thing data
 add &stats=1 to grab statistical info
-
-
-#gives me all the playtimes in an ordered list
-sorted(playtimedict.keys())
-
-
-objectidcoll.append(each_child.attrib['objectid'])
-
-
-boardgame object design
-ID number
-thumbnail
-image
-name
-description
-minplayers
-maxplayers
-playingtime
-poll results for suggested number of players
-	total votes
-	votes for numplayers X
-		best votes
-		recommended votes
-		not recommended votes
-
-
->>> suggestedplayercount = dict()
->>> suggestedplayercount['Total'] = 160
->>> suggestedplayercount
-{'Total': 160}
->>> suggestedplayercount[3] = {'Best' : 10, 'Recommended' : 25, 'Not Recommended':50}
->>> suggestedplayercount
-{3: {'Not Recommended': 50, 'Best': 10, 'Recommended': 25}, 'Total': 160}
->>> suggestedplayercount[3]['Best']
-10
->>> suggestedplayercount[3]['Best'] / suggestedplayercount['Total']
-0.0625
->>> (suggestedplayercount[3]['Best'] / suggestedplayercount['Total'])*100
-6.25
-
-
-PiNotes:
-sudo apt-get install python3-dev needed for SIP to install
-install SIP
-hmm, native compile of qt5 on the pi eh?? :s
-http://qt-project.org/wiki/Native_Build_of_Qt5_on_a_Raspberry_Pi
-install pyqt5

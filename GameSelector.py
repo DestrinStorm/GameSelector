@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Sat Dec 21 20:54:34 2013
+# Created: Sat Dec 21 21:30:30 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,11 +27,11 @@ class Ui_GameSelector(object):
     def setupUi(self, GameSelector):
         GameSelector.setObjectName(_fromUtf8("GameSelector"))
         GameSelector.setEnabled(True)
-        GameSelector.resize(1868, 1080)
+        GameSelector.resize(1819, 992)
         self.centralwidget = QtGui.QWidget(GameSelector)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.bgcollectionView = QtGui.QTableWidget(self.centralwidget)
-        self.bgcollectionView.setGeometry(QtCore.QRect(829, 10, 990, 1021))
+        self.bgcollectionView.setGeometry(QtCore.QRect(828, 10, 981, 975))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.bgcollectionView.setFont(font)
@@ -194,7 +194,7 @@ class Ui_GameSelector(object):
         self.Btn180mins.setCheckable(True)
         self.Btn180mins.setObjectName(_fromUtf8("Btn180mins"))
         self.tabbedzone = QtGui.QTabWidget(self.centralwidget)
-        self.tabbedzone.setGeometry(QtCore.QRect(20, 330, 801, 701))
+        self.tabbedzone.setGeometry(QtCore.QRect(20, 330, 801, 656))
         font = QtGui.QFont()
         font.setPointSize(28)
         self.tabbedzone.setFont(font)
@@ -203,21 +203,21 @@ class Ui_GameSelector(object):
         self.mechtab = QtGui.QWidget()
         self.mechtab.setObjectName(_fromUtf8("mechtab"))
         self.mechaniclist = QtGui.QListWidget(self.mechtab)
-        self.mechaniclist.setGeometry(QtCore.QRect(-1, -1, 801, 595))
+        self.mechaniclist.setGeometry(QtCore.QRect(-1, -1, 801, 600))
         font = QtGui.QFont()
         font.setPointSize(28)
         self.mechaniclist.setFont(font)
         self.mechaniclist.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.mechaniclist.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.mechaniclist.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
-        self.mechaniclist.setIconSize(QtCore.QSize(0, 75))
+        self.mechaniclist.setIconSize(QtCore.QSize(0, 0))
         self.mechaniclist.setObjectName(_fromUtf8("mechaniclist"))
         self.tabbedzone.addTab(self.mechtab, _fromUtf8(""))
         self.cattab = QtGui.QWidget()
         self.cattab.setObjectName(_fromUtf8("cattab"))
         self.categorylist = QtGui.QListWidget(self.cattab)
         self.categorylist.setEnabled(True)
-        self.categorylist.setGeometry(QtCore.QRect(-1, -1, 907, 685))
+        self.categorylist.setGeometry(QtCore.QRect(-1, -1, 801, 600))
         font = QtGui.QFont()
         font.setPointSize(28)
         self.categorylist.setFont(font)
@@ -239,7 +239,7 @@ class Ui_GameSelector(object):
         GameSelector.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(GameSelector)
-        self.tabbedzone.setCurrentIndex(0)
+        self.tabbedzone.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(GameSelector)
 
     def retranslateUi(self, GameSelector):
