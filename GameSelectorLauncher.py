@@ -152,10 +152,10 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.bgcollectionView.horizontalHeader().setMinimumHeight(50)
 		self.ui.mechaniclist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 75px; }")
 		self.ui.categorylist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 75px; }")
-		self.ui.bgcollectionView.setColumnWidth(self.NAME,575)
-		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,110)
-		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,110)
-		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,110)
+		self.ui.bgcollectionView.setColumnWidth(self.NAME,560)
+		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,115)
+		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,115)
+		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,115)
 		#Initial setup
 		self.updateUI()
 
