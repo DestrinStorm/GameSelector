@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Sat Dec 21 19:50:11 2013
+# Created: Sat Dec 21 20:07:43 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -31,7 +31,7 @@ class Ui_GameSelector(object):
         self.centralwidget = QtGui.QWidget(GameSelector)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.bgcollectionView = QtGui.QTableWidget(self.centralwidget)
-        self.bgcollectionView.setGeometry(QtCore.QRect(829, 10, 1031, 1061))
+        self.bgcollectionView.setGeometry(QtCore.QRect(829, 10, 1000, 1021))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.bgcollectionView.setFont(font)
@@ -77,7 +77,7 @@ class Ui_GameSelector(object):
         self.recommendedButton.setEnabled(False)
         self.recommendedButton.setGeometry(QtCore.QRect(249, 10, 191, 75))
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(18)
         self.recommendedButton.setFont(font)
         self.recommendedButton.setCheckable(True)
         self.recommendedButton.setObjectName(_fromUtf8("recommendedButton"))
@@ -143,7 +143,7 @@ class Ui_GameSelector(object):
         self.playTimeFrame.setFrameShadow(QtGui.QFrame.Plain)
         self.playTimeFrame.setObjectName(_fromUtf8("playTimeFrame"))
         self.PlayTimeLabel = QtGui.QLabel(self.playTimeFrame)
-        self.PlayTimeLabel.setGeometry(QtCore.QRect(15, 10, 421, 61))
+        self.PlayTimeLabel.setGeometry(QtCore.QRect(15, 10, 311, 61))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.PlayTimeLabel.setFont(font)
@@ -194,7 +194,7 @@ class Ui_GameSelector(object):
         self.Btn180mins.setCheckable(True)
         self.Btn180mins.setObjectName(_fromUtf8("Btn180mins"))
         self.tabbedzone = QtGui.QTabWidget(self.centralwidget)
-        self.tabbedzone.setGeometry(QtCore.QRect(20, 330, 801, 741))
+        self.tabbedzone.setGeometry(QtCore.QRect(20, 330, 801, 701))
         font = QtGui.QFont()
         font.setPointSize(28)
         self.tabbedzone.setFont(font)
@@ -203,7 +203,7 @@ class Ui_GameSelector(object):
         self.mechtab = QtGui.QWidget()
         self.mechtab.setObjectName(_fromUtf8("mechtab"))
         self.mechaniclist = QtGui.QListWidget(self.mechtab)
-        self.mechaniclist.setGeometry(QtCore.QRect(-1, -1, 907, 685))
+        self.mechaniclist.setGeometry(QtCore.QRect(-1, -1, 801, 685))
         font = QtGui.QFont()
         font.setPointSize(28)
         self.mechaniclist.setFont(font)
