@@ -330,8 +330,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 	def downloadData(self):
 		ret = QMessageBox.information(self, "Download", "Be warned, this locks up the screen for a good 10 mins.  Continue?",QMessageBox.Ok | QMessageBox.Cancel)
 		if ret == QMessageBox.Ok:
-			print("downloading")
-			downloadCollection()
+			downloadCollection(form)
 			loadCollection()
 			resetAllFilters()
 			#need a 'reset ui' function
@@ -340,6 +339,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 	def showdetails(self,selectedgameid):
 		#display the details dialog, passing in the BGGID of the selected game
 		dlg = DetailPopup(selectedgameid)
+		dlg.setWindowFlags(form.windowFlags() | QtCore.Qt.FramelessWindowHint)
 		dlg.exec_()
 
 #main execution starts here
@@ -349,7 +349,7 @@ bgcollection = dict()
 
 #Define the DownloadCollection function
 #Downloads data from BGG and pickles it to disk for later use by the loadCollection() function
-def downloadCollection(username="Darke"):
+def downloadCollection(parentwindow, username="Darke"):
 	#Initialisations
 	collection_url=("http://www.boardgamegeek.com/xmlapi2/collection?username="+username+"&wanttoplay=1")
 	#BGG XMLAPI2 URL for boardgame data)
@@ -369,9 +369,15 @@ def downloadCollection(username="Darke"):
 			bgcollectionids.append(int(each_child.attrib['objectid']))
 
 	#Now we have the IDs we can iterate the BGGame data XML to populate our objects
-	#Once for each ID in the downloaded collection 
+	#Once for each ID in the downloaded collection
+	progress = QProgressDialog("Downloading data...", None, 0, len(bgcollectionids), parentwindow);
+	progress.setWindowModality(Qt.WindowModal);
+	progress.show()
+	i=0
 	for each_objectid in bgcollectionids:
 		#Fetch the Game Data XML
+		i = i+1
+		progress.setValue(i)
 		with urlopen(BGDataURL+str(each_objectid)) as objectxml:
 			objecttree = etree.parse(objectxml)
 			objectroot = objecttree.getroot()

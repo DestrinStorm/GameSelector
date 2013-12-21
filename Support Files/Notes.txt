@@ -1,16 +1,11 @@
+remove window header on details popup
+
+
+group 1, mode 16 = 1920x1080
+
+lxconfig: /etc/xdg/lxsession/LCDE/autostart
+
 Ticket to Ride Map Collection: Volume 1 - Team Asia & Legendary Asia
-
-row height:
-	verticalHeader()->setUpdatesEnabled(FALSE);
- 
-	for (unsigned int i = 0; i < numRows(); i++)
-		verticalHeader()->resizeSection(i, rowHeight);
- 
-	verticalHeader()->setUpdatesEnabled(TRUE);
-
-select playercount to end up with null themes is broken
-
-1280x720
 
 
 BGG XML API URLs

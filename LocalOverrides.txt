@@ -3,10 +3,20 @@
 #GameID,Key,overridevalue
 #One line per override
 #
-#Red Dragon Inn player count override
+#Red Dragon Inn player count
 24310,maxplayers,10
 #
-#Dominion player count override
+#Dominion player count
 36218,maxplayers,6
-#Lords of waterdeep player count override
-#110327,maxplayers,6
+#Lords of waterdeep player count
+110327,maxplayers,6
+#Road & Boats player count
+875,maxplayers,6
+#Pillars of the earth player count
+24480,maxplayers,6
+#Chaos in the Old World player count
+43111,maxplayers,5
+#Empires player count
+22545,maxplayers,6
+#Village player count
+104006,maxplayers,5

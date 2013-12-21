@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Mon Dec  2 17:40:46 2013
+# Created: Sat Dec 21 16:54:35 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,11 +27,11 @@ class Ui_GameSelector(object):
     def setupUi(self, GameSelector):
         GameSelector.setObjectName(_fromUtf8("GameSelector"))
         GameSelector.setEnabled(True)
-        GameSelector.resize(1185, 630)
+        GameSelector.resize(1920, 1080)
         self.centralwidget = QtGui.QWidget(GameSelector)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.bgcollectionView = QtGui.QTableWidget(self.centralwidget)
-        self.bgcollectionView.setGeometry(QtCore.QRect(525, 0, 660, 628))
+        self.bgcollectionView.setGeometry(QtCore.QRect(540, 0, 660, 628))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.bgcollectionView.setFont(font)
@@ -49,12 +49,12 @@ class Ui_GameSelector(object):
         self.bgcollectionView.horizontalHeader().setSortIndicatorShown(True)
         self.bgcollectionView.verticalHeader().setVisible(False)
         self.lcdResults = QtGui.QLCDNumber(self.centralwidget)
-        self.lcdResults.setGeometry(QtCore.QRect(459, 185, 60, 35))
+        self.lcdResults.setGeometry(QtCore.QRect(470, 185, 60, 35))
         self.lcdResults.setDigitCount(3)
         self.lcdResults.setSegmentStyle(QtGui.QLCDNumber.Flat)
         self.lcdResults.setObjectName(_fromUtf8("lcdResults"))
         self.numPlayerFrame = QtGui.QFrame(self.centralwidget)
-        self.numPlayerFrame.setGeometry(QtCore.QRect(5, 5, 255, 175))
+        self.numPlayerFrame.setGeometry(QtCore.QRect(20, 5, 255, 175))
         self.numPlayerFrame.setFrameShape(QtGui.QFrame.Box)
         self.numPlayerFrame.setFrameShadow(QtGui.QFrame.Plain)
         self.numPlayerFrame.setObjectName(_fromUtf8("numPlayerFrame"))
@@ -138,7 +138,7 @@ class Ui_GameSelector(object):
         self.Btn9Player.setCheckable(True)
         self.Btn9Player.setObjectName(_fromUtf8("Btn9Player"))
         self.playTimeFrame = QtGui.QFrame(self.centralwidget)
-        self.playTimeFrame.setGeometry(QtCore.QRect(265, 5, 255, 175))
+        self.playTimeFrame.setGeometry(QtCore.QRect(280, 5, 255, 175))
         self.playTimeFrame.setFrameShape(QtGui.QFrame.Box)
         self.playTimeFrame.setFrameShadow(QtGui.QFrame.Plain)
         self.playTimeFrame.setObjectName(_fromUtf8("playTimeFrame"))
@@ -208,7 +208,7 @@ class Ui_GameSelector(object):
         self.Btn300mins.setCheckable(True)
         self.Btn300mins.setObjectName(_fromUtf8("Btn300mins"))
         self.tabbedzone = QtGui.QTabWidget(self.centralwidget)
-        self.tabbedzone.setGeometry(QtCore.QRect(5, 185, 520, 444))
+        self.tabbedzone.setGeometry(QtCore.QRect(20, 185, 520, 444))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.tabbedzone.setFont(font)

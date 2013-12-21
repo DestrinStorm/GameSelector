@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1185</width>
-    <height>630</height>
+    <width>1920</width>
+    <height>1080</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
    <widget class="QTableWidget" name="bgcollectionView">
     <property name="geometry">
      <rect>
-      <x>525</x>
+      <x>540</x>
       <y>0</y>
       <width>660</width>
       <height>628</height>
@@ -79,7 +79,7 @@
    <widget class="QLCDNumber" name="lcdResults">
     <property name="geometry">
      <rect>
-      <x>459</x>
+      <x>470</x>
       <y>185</y>
       <width>60</width>
       <height>35</height>
@@ -95,7 +95,7 @@
    <widget class="QFrame" name="numPlayerFrame">
     <property name="geometry">
      <rect>
-      <x>5</x>
+      <x>20</x>
       <y>5</y>
       <width>255</width>
       <height>175</height>
@@ -348,7 +348,7 @@
    <widget class="QFrame" name="playTimeFrame">
     <property name="geometry">
      <rect>
-      <x>265</x>
+      <x>280</x>
       <y>5</y>
       <width>255</width>
       <height>175</height>
@@ -559,7 +559,7 @@
    <widget class="QTabWidget" name="tabbedzone">
     <property name="geometry">
      <rect>
-      <x>5</x>
+      <x>20</x>
       <y>185</y>
       <width>520</width>
       <height>444</height>
