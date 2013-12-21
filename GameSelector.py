@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Sat Dec 21 20:07:43 2013
+# Created: Sat Dec 21 20:12:59 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -31,7 +31,7 @@ class Ui_GameSelector(object):
         self.centralwidget = QtGui.QWidget(GameSelector)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.bgcollectionView = QtGui.QTableWidget(self.centralwidget)
-        self.bgcollectionView.setGeometry(QtCore.QRect(829, 10, 1000, 1021))
+        self.bgcollectionView.setGeometry(QtCore.QRect(829, 10, 990, 1021))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.bgcollectionView.setFont(font)
@@ -60,7 +60,7 @@ class Ui_GameSelector(object):
         self.numPlayerFrame.setObjectName(_fromUtf8("numPlayerFrame"))
         self.bestButton = QtGui.QPushButton(self.numPlayerFrame)
         self.bestButton.setEnabled(False)
-        self.bestButton.setGeometry(QtCore.QRect(10, 5, 100, 75))
+        self.bestButton.setGeometry(QtCore.QRect(10, 10, 100, 75))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.bestButton.setFont(font)
@@ -203,7 +203,7 @@ class Ui_GameSelector(object):
         self.mechtab = QtGui.QWidget()
         self.mechtab.setObjectName(_fromUtf8("mechtab"))
         self.mechaniclist = QtGui.QListWidget(self.mechtab)
-        self.mechaniclist.setGeometry(QtCore.QRect(-1, -1, 801, 685))
+        self.mechaniclist.setGeometry(QtCore.QRect(-1, -1, 801, 601))
         font = QtGui.QFont()
         font.setPointSize(28)
         self.mechaniclist.setFont(font)
