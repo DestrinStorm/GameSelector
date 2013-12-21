@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Sat Dec 21 21:30:30 2013
+# Created: Sat Dec 21 21:39:49 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -239,7 +239,7 @@ class Ui_GameSelector(object):
         GameSelector.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(GameSelector)
-        self.tabbedzone.setCurrentIndex(1)
+        self.tabbedzone.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(GameSelector)
 
     def retranslateUi(self, GameSelector):
