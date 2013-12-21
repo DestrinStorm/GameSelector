@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Sat Dec 21 19:17:03 2013
+# Created: Sat Dec 21 19:23:53 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -31,9 +31,9 @@ class Ui_GameSelector(object):
         self.centralwidget = QtGui.QWidget(GameSelector)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.bgcollectionView = QtGui.QTableWidget(self.centralwidget)
-        self.bgcollectionView.setGeometry(QtCore.QRect(940, 10, 961, 1061))
+        self.bgcollectionView.setGeometry(QtCore.QRect(940, 10, 951, 1061))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(20)
         self.bgcollectionView.setFont(font)
         self.bgcollectionView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.bgcollectionView.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
@@ -49,7 +49,7 @@ class Ui_GameSelector(object):
         self.bgcollectionView.horizontalHeader().setSortIndicatorShown(True)
         self.bgcollectionView.verticalHeader().setVisible(False)
         self.lcdResults = QtGui.QLCDNumber(self.centralwidget)
-        self.lcdResults.setGeometry(QtCore.QRect(838, 330, 91, 51))
+        self.lcdResults.setGeometry(QtCore.QRect(838, 330, 91, 50))
         self.lcdResults.setDigitCount(3)
         self.lcdResults.setSegmentStyle(QtGui.QLCDNumber.Flat)
         self.lcdResults.setObjectName(_fromUtf8("lcdResults"))
@@ -219,7 +219,7 @@ class Ui_GameSelector(object):
         self.mechaniclist = QtGui.QListWidget(self.mechtab)
         self.mechaniclist.setGeometry(QtCore.QRect(-1, -1, 907, 685))
         font = QtGui.QFont()
-        font.setPointSize(22)
+        font.setPointSize(24)
         self.mechaniclist.setFont(font)
         self.mechaniclist.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.mechaniclist.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
