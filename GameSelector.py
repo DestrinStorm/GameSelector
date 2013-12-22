@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Sat Dec 21 21:39:49 2013
+# Created: Sun Dec 22 00:57:23 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -31,7 +31,7 @@ class Ui_GameSelector(object):
         self.centralwidget = QtGui.QWidget(GameSelector)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.bgcollectionView = QtGui.QTableWidget(self.centralwidget)
-        self.bgcollectionView.setGeometry(QtCore.QRect(828, 10, 981, 975))
+        self.bgcollectionView.setGeometry(QtCore.QRect(828, 10, 984, 975))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.bgcollectionView.setFont(font)
@@ -227,7 +227,7 @@ class Ui_GameSelector(object):
         self.tab = QtGui.QWidget()
         self.tab.setObjectName(_fromUtf8("tab"))
         self.downloadData = QtGui.QPushButton(self.tab)
-        self.downloadData.setGeometry(QtCore.QRect(10, 10, 121, 61))
+        self.downloadData.setGeometry(QtCore.QRect(10, 10, 150, 100))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.downloadData.setFont(font)
@@ -236,6 +236,13 @@ class Ui_GameSelector(object):
         self.downloadData.setFlat(False)
         self.downloadData.setObjectName(_fromUtf8("downloadData"))
         self.tabbedzone.addTab(self.tab, _fromUtf8(""))
+        self.resetAll = QtGui.QPushButton(self.centralwidget)
+        self.resetAll.setEnabled(True)
+        self.resetAll.setGeometry(QtCore.QRect(561, 326, 151, 50))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.resetAll.setFont(font)
+        self.resetAll.setObjectName(_fromUtf8("resetAll"))
         GameSelector.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(GameSelector)
@@ -268,4 +275,5 @@ class Ui_GameSelector(object):
         self.downloadData.setText(_translate("GameSelector", "Download\n"
 "Collection", None))
         self.tabbedzone.setTabText(self.tabbedzone.indexOf(self.tab), _translate("GameSelector", "Admin", None))
+        self.resetAll.setText(_translate("GameSelector", "Reset Filters", None))
 

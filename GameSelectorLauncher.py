@@ -40,11 +40,17 @@ class boardgamedict(dict):
 	def suggestedPlayerCountVoteRaw(self,playercount,votetype='Best'):
 		if playercount in self['suggestedplayercount'].keys():
 			bestvotes = self['suggestedplayercount'][playercount][votetype]
-			totalvotes = self['suggestedplayercount']['totalvotes']
-			return str(bestvotes) + " / " + str(totalvotes)
+			return str(bestvotes)
 		else:
 			return 0
 
+	def suggestedPlayerCountVoteTotal(self,playercount):
+		if playercount in self['suggestedplayercount'].keys():
+			totalvotes = self['suggestedplayercount']['totalvotes']
+			return str(totalvotes)
+		else:
+			return 0
+		
 	def isBestWith(self,playercount,votetolerance=50):
 		if self.suggestedPlayerCountVote(int(playercount),'Best') >= votetolerance:
 			return True
@@ -52,7 +58,7 @@ class boardgamedict(dict):
 			return False
 
 	def isRecommendedWith(self,playercount,votetolerance=50):
-                #Sweeping assumption that we accept 'best' votes if we are looking for 'recommended' votes
+		#Sweeping assumption that we accept 'best' votes if we are looking for 'recommended' votes
 		if self.suggestedPlayerCountVote(int(playercount),'Best') >= votetolerance:
 			return True
 		else:
@@ -63,21 +69,20 @@ class boardgamedict(dict):
 #Define classes for the UI elements
 class DetailPopup(QDialog, Ui_GameDetail):
 
-	NUMPLAYERS, BEST, RECOMMENDED, NOTRECOMMENDED, TOTAL = range(5)
+	BEST, RECOMMENDED, NOTRECOMMENDED, TOTAL = range(4)
 
 	def __init__(self,bggid,parent=None):
 		super(DetailPopup,self).__init__(parent)
 		self.ui=Ui_GameDetail()
 		self.ui.setupUi(self)
 		self.ui.bgName.setText(bgcollection[bggid]["name"])
-		self.ui.description.setHtml(bgcollection[bggid]["description"])
-		self.ui.imageDisplay.setHtml("...Loading image...")
-		self.ui.imageDisplay.load(QUrl(bgcollection[bggid]["thumbnail"]))
+		self.ui.description.setHtml('<div style="font-size:16pt">'+bgcollection[bggid]["description"]+'</div>')
+		self.ui.imageDisplay.setHtml('<div style="text-align: center; vertical-align: middle"><img src='+bgcollection[bggid]["image"].replace(".jpg","_md.jpg")+'></div>')
 		self.ui.closeButton.clicked.connect(self.done)
 		self.ui.votingData.clear()
 		self.ui.votingData.setSortingEnabled(False)
 		#replace headers - clear() deletes them :(
-		headers = ["Players", "Best", "Recommended", "Not Recommended", "Total"]
+		headers = ["Best", "Recommended", "Not Recommended", "Total"]
 		self.ui.votingData.setHorizontalHeaderLabels(headers)
 		#fetch voting data and populate table
 		#clunky arsed way to get the suggestedplayercount values
@@ -85,18 +90,32 @@ class DetailPopup(QDialog, Ui_GameDetail):
 		playercountlist.remove('totalvotes')
 		self.ui.votingData.setRowCount(len(playercountlist))
 		for row,playercount in enumerate(playercountlist):
-			#numplayers column
-			item = QTableWidgetItem(playercount)
-			self.ui.votingData.setItem(row, self.NUMPLAYERS, item)
 			#Best votes column
-			#print(playercount)
-			item = QTableWidgetItem(bgcollection[bggid].suggestedPlayerCountVoteRaw(playercount,'Best'))
+			item = QTableWidgetItem(str(bgcollection[bggid].suggestedPlayerCountVoteRaw(playercount,'Best')) + " (" + str(bgcollection[bggid].suggestedPlayerCountVote(playercount,'Best'))+ "%)")
 			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
 			self.ui.votingData.setItem(row, self.BEST, item)
-		#reenable sorting
-		self.ui.votingData.setSortingEnabled(True)
-		#TODO: kinda want to keep track of whatever the 'current' sort is
-		self.ui.votingData.sortItems(self.NUMPLAYERS)
+			#Recommended votes column
+			item = QTableWidgetItem(str(bgcollection[bggid].suggestedPlayerCountVoteRaw(playercount,'Recommended')) + " (" + str(bgcollection[bggid].suggestedPlayerCountVote(playercount,'Recommended'))+ "%)")
+			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+			self.ui.votingData.setItem(row, self.RECOMMENDED, item)
+			#Not Recommended votes column
+			item = QTableWidgetItem(str(bgcollection[bggid].suggestedPlayerCountVoteRaw(playercount,'Not Recommended')) + " (" + str(bgcollection[bggid].suggestedPlayerCountVote(playercount,'Not Recommended'))+ "%)")
+			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+			self.ui.votingData.setItem(row, self.NOTRECOMMENDED, item)
+			#Total Votes column
+			item = QTableWidgetItem(bgcollection[bggid].suggestedPlayerCountVoteTotal(playercount))
+			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+			self.ui.votingData.setItem(row, self.TOTAL, item)
+		#sort out player count row labels
+		playercountliststr = []
+		for item in playercountlist:
+			#turn them into strings
+			playercountliststr.append(str(item))
+		self.ui.votingData.setVerticalHeaderLabels(playercountliststr)
+		self.ui.votingData.setColumnWidth(self.BEST,100)
+		self.ui.votingData.setColumnWidth(self.RECOMMENDED,155)
+		self.ui.votingData.setColumnWidth(self.NOTRECOMMENDED,200)
+		self.ui.votingData.setColumnWidth(self.TOTAL,95)
 
 class MainForm(QMainWindow, Ui_GameSelector):
 
@@ -133,6 +152,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.Btn120mins.clicked.connect(lambda: self.playtimeFilter(120,self.ui.Btn120mins))
 		self.ui.Btn150mins.clicked.connect(lambda: self.playtimeFilter(150,self.ui.Btn150mins))
 		self.ui.Btn180mins.clicked.connect(lambda: self.playtimeFilter(180,self.ui.Btn180mins))
+		self.ui.resetAll.clicked.connect(lambda: self.resetButtonclicked())
 		self.playtimebuttonset = set()
 		self.playtimebuttonset.add(self.ui.Btn30mins)
 		self.playtimebuttonset.add(self.ui.Btn60mins)
@@ -156,11 +176,22 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,115)
 		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,115)
 		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,115)
+		self.ui.resetAll.setVisible(False)
 		#Initial setup
+		self.updateUI()
+
+	def resetButtonclicked(self):
+		resetAllFilters()
 		self.updateUI()
 
 	def updateUI(self):
 		combinefilters()
+		#Are we filtering?
+		if len(filteredset) == len(allbgids):
+			#nope
+			self.ui.resetAll.setVisible(False)
+		else:
+			self.ui.resetAll.setVisible(True)
 		self.reconfigurebuttons()
 		self.populateLists()
 		self.populateTable()

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameDetail.ui'
 #
-# Created: Sat Dec 21 21:39:49 2013
+# Created: Sun Dec 22 00:57:23 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,9 +27,9 @@ class Ui_GameDetail(object):
     def setupUi(self, GameDetail):
         GameDetail.setObjectName(_fromUtf8("GameDetail"))
         GameDetail.setWindowModality(QtCore.Qt.ApplicationModal)
-        GameDetail.resize(1067, 593)
+        GameDetail.resize(1365, 744)
         self.closeButton = QtGui.QPushButton(GameDetail)
-        self.closeButton.setGeometry(QtCore.QRect(910, 510, 150, 75))
+        self.closeButton.setGeometry(QtCore.QRect(1249, 409, 110, 331))
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -38,20 +38,37 @@ class Ui_GameDetail(object):
         self.closeButton.setMinimumSize(QtCore.QSize(0, 70))
         self.closeButton.setObjectName(_fromUtf8("closeButton"))
         self.imageDisplay = QtWebKit.QWebView(GameDetail)
-        self.imageDisplay.setGeometry(QtCore.QRect(10, 50, 281, 241))
+        self.imageDisplay.setGeometry(QtCore.QRect(10, 50, 651, 691))
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        self.imageDisplay.setPalette(palette)
         self.imageDisplay.setUrl(QtCore.QUrl(_fromUtf8("about:blank")))
         self.imageDisplay.setObjectName(_fromUtf8("imageDisplay"))
         self.description = QtWebKit.QWebView(GameDetail)
-        self.description.setGeometry(QtCore.QRect(560, 50, 500, 451))
+        self.description.setGeometry(QtCore.QRect(670, 50, 690, 351))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.description.setFont(font)
         self.description.setUrl(QtCore.QUrl(_fromUtf8("about:blank")))
         self.description.setObjectName(_fromUtf8("description"))
         self.votingData = QtGui.QTableWidget(GameDetail)
-        self.votingData.setGeometry(QtCore.QRect(10, 300, 521, 221))
-        self.votingData.setColumnCount(5)
+        self.votingData.setGeometry(QtCore.QRect(670, 410, 573, 331))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.votingData.setFont(font)
+        self.votingData.setColumnCount(4)
         self.votingData.setObjectName(_fromUtf8("votingData"))
         self.votingData.setRowCount(0)
         self.bgName = QtGui.QLabel(GameDetail)
-        self.bgName.setGeometry(QtCore.QRect(5, 2, 1061, 41))
+        self.bgName.setGeometry(QtCore.QRect(5, 2, 1351, 41))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Segoe UI"))
         font.setPointSize(22)

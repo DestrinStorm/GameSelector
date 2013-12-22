@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1067</width>
-    <height>593</height>
+    <width>1365</width>
+    <height>744</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,10 +19,10 @@
   <widget class="QPushButton" name="closeButton">
    <property name="geometry">
     <rect>
-     <x>910</x>
-     <y>510</y>
-     <width>150</width>
-     <height>75</height>
+     <x>1249</x>
+     <y>409</y>
+     <width>110</width>
+     <height>331</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -46,9 +46,46 @@
     <rect>
      <x>10</x>
      <y>50</y>
-     <width>281</width>
-     <height>241</height>
+     <width>651</width>
+     <height>691</height>
     </rect>
+   </property>
+   <property name="palette">
+    <palette>
+     <active>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>240</red>
+         <green>240</green>
+         <blue>240</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </active>
+     <inactive>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>240</red>
+         <green>240</green>
+         <blue>240</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </inactive>
+     <disabled>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>240</red>
+         <green>240</green>
+         <blue>240</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </disabled>
+    </palette>
    </property>
    <property name="url">
     <url>
@@ -59,11 +96,16 @@
   <widget class="QWebView" name="description">
    <property name="geometry">
     <rect>
-     <x>560</x>
+     <x>670</x>
      <y>50</y>
-     <width>500</width>
-     <height>451</height>
+     <width>690</width>
+     <height>351</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
    </property>
    <property name="url">
     <url>
@@ -74,16 +116,20 @@
   <widget class="QTableWidget" name="votingData">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>300</y>
-     <width>521</width>
-     <height>221</height>
+     <x>670</x>
+     <y>410</y>
+     <width>573</width>
+     <height>331</height>
     </rect>
    </property>
-   <property name="columnCount">
-    <number>5</number>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
    </property>
-   <column/>
+   <property name="columnCount">
+    <number>4</number>
+   </property>
    <column/>
    <column/>
    <column/>
@@ -94,7 +140,7 @@
     <rect>
      <x>5</x>
      <y>2</y>
-     <width>1061</width>
+     <width>1351</width>
      <height>41</height>
     </rect>
    </property>
