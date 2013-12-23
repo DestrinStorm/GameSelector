@@ -76,8 +76,9 @@ class DetailPopup(QDialog, Ui_GameDetail):
 		self.ui=Ui_GameDetail()
 		self.ui.setupUi(self)
 		self.ui.bgName.setText(bgcollection[bggid]["name"])
-		self.ui.description.setHtml('<div style="font-size:16pt">'+bgcollection[bggid]["description"]+'</div>')
-		self.ui.imageDisplay.setHtml('<div style="text-align: center; vertical-align: middle"><img src='+bgcollection[bggid]["image"].replace(".jpg","_md.jpg")+'></div>')
+		self.ui.description.setHtml('<div style="font-size:18pt">'+bgcollection[bggid]["description"]+'</div>')
+		imagestring = '_md.'.join(bgcollection[bggid]["image"].rsplit('.',1))
+		self.ui.imageDisplay.setHtml('<div style="text-align: center; vertical-align: middle"><img src='+imagestring+'></div>')
 		self.ui.closeButton.clicked.connect(self.done)
 		self.ui.votingData.clear()
 		self.ui.votingData.setSortingEnabled(False)
@@ -112,10 +113,10 @@ class DetailPopup(QDialog, Ui_GameDetail):
 			#turn them into strings
 			playercountliststr.append(str(item))
 		self.ui.votingData.setVerticalHeaderLabels(playercountliststr)
-		self.ui.votingData.setColumnWidth(self.BEST,100)
-		self.ui.votingData.setColumnWidth(self.RECOMMENDED,155)
-		self.ui.votingData.setColumnWidth(self.NOTRECOMMENDED,200)
-		self.ui.votingData.setColumnWidth(self.TOTAL,95)
+		self.ui.votingData.setColumnWidth(self.BEST,180)
+		self.ui.votingData.setColumnWidth(self.RECOMMENDED,190)
+		self.ui.votingData.setColumnWidth(self.NOTRECOMMENDED,199)
+		self.ui.votingData.setColumnWidth(self.TOTAL,110)
 
 class MainForm(QMainWindow, Ui_GameSelector):
 
@@ -188,11 +189,19 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		combinefilters()
 		#Are we filtering?
 		if len(filteredset) == len(allbgids):
-			#nope
+			#nope, hide the reset button and turn off all the buttons
 			self.ui.resetAll.setVisible(False)
+			for button in self.playercountbuttonset:
+				button.setChecked(False)
+			self.ui.bestButton.setEnabled(False)
+			self.ui.recommendedButton.setEnabled(False)
+			for i in range(self.ui.mechaniclist.count()):
+				       self.ui.mechaniclist.setItemSelected(self.ui.mechaniclist.item(i), False)
+			for i in range(self.ui.categorylist.count()):
+				       self.ui.categorylist.setItemSelected(self.ui.categorylist.item(i), False)
 		else:
 			self.ui.resetAll.setVisible(True)
-		self.reconfigurebuttons()
+			self.reconfigurebuttons()
 		self.populateLists()
 		self.populateTable()
 

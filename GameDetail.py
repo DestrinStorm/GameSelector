@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameDetail.ui'
 #
-# Created: Sun Dec 22 00:57:23 2013
+# Created: Mon Dec 23 14:14:27 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -36,9 +36,12 @@ class Ui_GameDetail(object):
         sizePolicy.setHeightForWidth(self.closeButton.sizePolicy().hasHeightForWidth())
         self.closeButton.setSizePolicy(sizePolicy)
         self.closeButton.setMinimumSize(QtCore.QSize(0, 70))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.closeButton.setFont(font)
         self.closeButton.setObjectName(_fromUtf8("closeButton"))
         self.imageDisplay = QtWebKit.QWebView(GameDetail)
-        self.imageDisplay.setGeometry(QtCore.QRect(10, 50, 651, 691))
+        self.imageDisplay.setGeometry(QtCore.QRect(10, 50, 520, 520))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -53,14 +56,14 @@ class Ui_GameDetail(object):
         self.imageDisplay.setUrl(QtCore.QUrl(_fromUtf8("about:blank")))
         self.imageDisplay.setObjectName(_fromUtf8("imageDisplay"))
         self.description = QtWebKit.QWebView(GameDetail)
-        self.description.setGeometry(QtCore.QRect(670, 50, 690, 351))
+        self.description.setGeometry(QtCore.QRect(540, 50, 821, 351))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.description.setFont(font)
         self.description.setUrl(QtCore.QUrl(_fromUtf8("about:blank")))
         self.description.setObjectName(_fromUtf8("description"))
         self.votingData = QtGui.QTableWidget(GameDetail)
-        self.votingData.setGeometry(QtCore.QRect(670, 410, 573, 331))
+        self.votingData.setGeometry(QtCore.QRect(540, 450, 701, 291))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.votingData.setFont(font)
@@ -78,6 +81,17 @@ class Ui_GameDetail(object):
         self.bgName.setTextFormat(QtCore.Qt.PlainText)
         self.bgName.setAlignment(QtCore.Qt.AlignCenter)
         self.bgName.setObjectName(_fromUtf8("bgName"))
+        self.voteLabel = QtGui.QLabel(GameDetail)
+        self.voteLabel.setGeometry(QtCore.QRect(540, 410, 701, 31))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Segoe UI"))
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.voteLabel.setFont(font)
+        self.voteLabel.setTextFormat(QtCore.Qt.PlainText)
+        self.voteLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.voteLabel.setObjectName(_fromUtf8("voteLabel"))
 
         self.retranslateUi(GameDetail)
         QtCore.QMetaObject.connectSlotsByName(GameDetail)
@@ -86,5 +100,6 @@ class Ui_GameDetail(object):
         GameDetail.setWindowTitle(_translate("GameDetail", "Dialog", None))
         self.closeButton.setText(_translate("GameDetail", "Close", None))
         self.bgName.setText(_translate("GameDetail", "Ticket to Ride Map Collection: Volume 1 - Team Asia & Legendary Asia", None))
+        self.voteLabel.setText(_translate("GameDetail", "Number of Players Voting Data", None))
 
 from PyQt4 import QtWebKit

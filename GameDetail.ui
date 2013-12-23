@@ -37,6 +37,11 @@
      <height>70</height>
     </size>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
    <property name="text">
     <string>Close</string>
    </property>
@@ -46,8 +51,8 @@
     <rect>
      <x>10</x>
      <y>50</y>
-     <width>651</width>
-     <height>691</height>
+     <width>520</width>
+     <height>520</height>
     </rect>
    </property>
    <property name="palette">
@@ -96,9 +101,9 @@
   <widget class="QWebView" name="description">
    <property name="geometry">
     <rect>
-     <x>670</x>
+     <x>540</x>
      <y>50</y>
-     <width>690</width>
+     <width>821</width>
      <height>351</height>
     </rect>
    </property>
@@ -116,10 +121,10 @@
   <widget class="QTableWidget" name="votingData">
    <property name="geometry">
     <rect>
-     <x>670</x>
-     <y>410</y>
-     <width>573</width>
-     <height>331</height>
+     <x>540</x>
+     <y>450</y>
+     <width>701</width>
+     <height>291</height>
     </rect>
    </property>
    <property name="font">
@@ -154,6 +159,33 @@
    </property>
    <property name="text">
     <string>Ticket to Ride Map Collection: Volume 1 - Team Asia &amp; Legendary Asia</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::PlainText</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="voteLabel">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>410</y>
+     <width>701</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>18</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Number of Players Voting Data</string>
    </property>
    <property name="textFormat">
     <enum>Qt::PlainText</enum>

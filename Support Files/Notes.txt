@@ -6,6 +6,13 @@ Family:
 like mechanic but called boardgamecategory, fetch value
 
 
+game detail popup:
+resize to conents for best column, not recommended still needs to be slightly larger
+as does recommended
+larger font on description
+background for image viewer needs to match background
+
+
 
 
 BGG XML API URLs

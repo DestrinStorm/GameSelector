@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Sun Dec 22 00:57:23 2013
+# Created: Mon Dec 23 14:14:26 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -221,6 +221,7 @@ class Ui_GameSelector(object):
         font = QtGui.QFont()
         font.setPointSize(28)
         self.categorylist.setFont(font)
+        self.categorylist.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.categorylist.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
         self.categorylist.setObjectName(_fromUtf8("categorylist"))
         self.tabbedzone.addTab(self.cattab, _fromUtf8(""))

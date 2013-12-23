@@ -590,6 +590,9 @@
         <pointsize>28</pointsize>
        </font>
       </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
       <property name="selectionMode">
        <enum>QAbstractItemView::MultiSelection</enum>
       </property>
