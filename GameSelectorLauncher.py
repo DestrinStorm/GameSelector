@@ -1,6 +1,7 @@
 import sys
 import os
 import pickle
+import time
 import xml.etree.ElementTree as etree
 from urllib.request import urlopen
 from PyQt4.QtCore import *
@@ -399,9 +400,20 @@ def downloadCollection(parentwindow, username="Darke"):
 	#temp list to hold the IDs from the collection
 	bgcollectionids = []
 	#Master dictionary, index by BGGID
-	bgcollection = dict()
-
-	#Fetch the 'want to play' collection XML, fill the objectiddict with it
+	bgcollection = dict()	
+	#Firstly, do an initial connection to start the collection cache process
+	collectioncaching = 1
+	while collectioncaching == 1:
+		collection_probe = urlopen(collection_url)
+		#check the HTTP return, 202 means we need to delay
+		if collection_probe.getcode() == 202:
+			#shut down, go to sleep for 30 secs
+			collection_probe.close()
+			time.sleep(30)
+		else:
+			collectioncaching = 0
+	#Right, press on with fetching the actual data now that BGG have ti generated      
+	#Fetch the 'want to play' collection XML, fill the objectiddict with it                
 	with urlopen(collection_url) as collection_xml:
 		collectiontree = etree.parse(collection_xml)
 		collectionroot = collectiontree.getroot()
