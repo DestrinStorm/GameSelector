@@ -1,4 +1,4 @@
 GameSelector
 ============
 
-Boardgame selection utillity for a RasPi based kiosk PC
+Fork of GameSelector to specifically handle geeklist extraction and browsing, rather than user based.
