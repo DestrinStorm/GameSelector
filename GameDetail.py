@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameDetail.ui'
 #
-# Created: Mon Dec 23 14:14:27 2013
+# Created: Wed Jan  7 16:47:31 2015
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,7 +27,7 @@ class Ui_GameDetail(object):
     def setupUi(self, GameDetail):
         GameDetail.setObjectName(_fromUtf8("GameDetail"))
         GameDetail.setWindowModality(QtCore.Qt.ApplicationModal)
-        GameDetail.resize(1365, 744)
+        GameDetail.resize(1200, 700)
         self.closeButton = QtGui.QPushButton(GameDetail)
         self.closeButton.setGeometry(QtCore.QRect(1249, 409, 110, 331))
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
@@ -56,14 +56,14 @@ class Ui_GameDetail(object):
         self.imageDisplay.setUrl(QtCore.QUrl(_fromUtf8("about:blank")))
         self.imageDisplay.setObjectName(_fromUtf8("imageDisplay"))
         self.description = QtWebKit.QWebView(GameDetail)
-        self.description.setGeometry(QtCore.QRect(540, 50, 821, 351))
+        self.description.setGeometry(QtCore.QRect(540, 50, 660, 351))
         font = QtGui.QFont()
-        font.setPointSize(16)
+        font.setPointSize(14)
         self.description.setFont(font)
         self.description.setUrl(QtCore.QUrl(_fromUtf8("about:blank")))
         self.description.setObjectName(_fromUtf8("description"))
         self.votingData = QtGui.QTableWidget(GameDetail)
-        self.votingData.setGeometry(QtCore.QRect(540, 450, 701, 291))
+        self.votingData.setGeometry(QtCore.QRect(540, 450, 660, 250))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.votingData.setFont(font)
@@ -71,7 +71,7 @@ class Ui_GameDetail(object):
         self.votingData.setObjectName(_fromUtf8("votingData"))
         self.votingData.setRowCount(0)
         self.bgName = QtGui.QLabel(GameDetail)
-        self.bgName.setGeometry(QtCore.QRect(5, 2, 1351, 41))
+        self.bgName.setGeometry(QtCore.QRect(5, 2, 1200, 41))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Segoe UI"))
         font.setPointSize(22)

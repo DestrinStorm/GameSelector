@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1365</width>
-    <height>744</height>
+    <width>1200</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -103,13 +103,13 @@
     <rect>
      <x>540</x>
      <y>50</y>
-     <width>821</width>
+     <width>660</width>
      <height>351</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>16</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="url">
@@ -123,8 +123,8 @@
     <rect>
      <x>540</x>
      <y>450</y>
-     <width>701</width>
-     <height>291</height>
+     <width>660</width>
+     <height>250</height>
     </rect>
    </property>
    <property name="font">
@@ -145,7 +145,7 @@
     <rect>
      <x>5</x>
      <y>2</y>
-     <width>1351</width>
+     <width>1200</width>
      <height>41</height>
     </rect>
    </property>
