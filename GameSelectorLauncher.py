@@ -434,6 +434,8 @@ def downloadCollection(parentwindow, username="Darke"):
 		#Fetch the Game Data XML
 		i = i+1
 		progress.setValue(i)
+		#pause, else we get an HTTP 503 due to abuse
+		time.sleep(1)
 		with urlopen(BGDataURL+str(each_objectid)) as objectxml:
 			objecttree = etree.parse(objectxml)
 			objectroot = objecttree.getroot()
