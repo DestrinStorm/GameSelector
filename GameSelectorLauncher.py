@@ -12,13 +12,14 @@ from GameDetail import *
 #Define the boardgame class
 #Extend dictionary and assign the appropriate data to preset key names
 class boardgamedict(dict):
-	def __init__(self, ID, name, minplayers, maxplayers, playingtime, description='', thumbnail='', image='', suggestedplayercount=dict(),categories=list(),mechanics=list()):
+	def __init__(self, ID, name, minplayers, maxplayers, minplaytime, maxplaytime, description='', thumbnail='', image='', suggestedplayercount=dict(),categories=list(),mechanics=list()):
 		dict.__init__({})
 		self["ID"] = int(ID)
 		self["name"] = name
 		self["minplayers"] = int(minplayers)
 		self["maxplayers"] = int(maxplayers)
-		self["playingtime"] = int(playingtime)
+		self["minplaytime"] = int(minplaytime)
+		self["maxplaytime"] = int(maxplaytime)
 		self["description"] = description
 		self["thumbnail"] = thumbnail
 		self["image"] = image
@@ -285,7 +286,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
 			self.ui.bgcollectionView.setItem(row, self.MAXPLAYERS, item)
 			#playingtime column
-			item = QTableWidgetItem(str.rjust(str(bgcollection[boardgame]["playingtime"]),3))
+			item = QTableWidgetItem(str.rjust(str(bgcollection[boardgame]["maxplaytime"]),3))
 			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
 			self.ui.bgcollectionView.setItem(row, self.PLAYTIME, item)
 		#reenable sorting
@@ -437,11 +438,12 @@ def downloadCollection(parentwindow, username="Darke"):
 		with urlopen(BGDataURL+str(each_objectid)) as objectxml:
 			objecttree = etree.parse(objectxml)
 			objectroot = objecttree.getroot()
-			#There can be multiple names, but it looks lime the primary name is always index 0
+			#There can be multiple names, but it looks like the primary name is always index 0
 			name = objectroot[0].find('name').attrib['value']
 			minplayers = int(objectroot[0].find('minplayers').attrib['value'])
 			maxplayers = int(objectroot[0].find('maxplayers').attrib['value'])
-			playingtime = int(objectroot[0].find('playingtime').attrib['value'])
+			minplaytime = int(objectroot[0].find('minplaytime').attrib['value'])
+			maxplaytime = int(objectroot[0].find('maxplaytime').attrib['value'])
 			description = objectroot[0].find('description').text
 			thumbnail = objectroot[0].find('thumbnail').text
 			image = objectroot[0].find('image').text
@@ -480,7 +482,7 @@ def downloadCollection(parentwindow, username="Darke"):
 				elif (each_link.attrib['type'] == 'boardgamemechanic'):
 					mechanics.append(each_link.attrib['value'])
 			#Create the boardgame object, shove it in the collection dict
-			bgcollection[each_objectid] = boardgamedict(each_objectid,name,minplayers,maxplayers,playingtime,description,thumbnail,image,suggestedplayercount,categories,mechanics)
+			bgcollection[each_objectid] = boardgamedict(each_objectid,name,minplayers,maxplayers,minplaytime,maxplaytime,description,thumbnail,image,suggestedplayercount,categories,mechanics)
 
 	#Pickle the lot to disk for later use
 	try:
@@ -566,7 +568,7 @@ def resetplaytimefilter():
 
 def playtimefilter(playtime):
 	global playtimeset
-	playtimeset = set([BGID for BGID in bgcollection.keys() if bgcollection[BGID]['playingtime'] <= playtime])
+	playtimeset = set([BGID for BGID in bgcollection.keys() if bgcollection[BGID]['maxplaytime'] <= playtime])
 
 def resetsuggestedfilter():
 	global suggestedbestset
