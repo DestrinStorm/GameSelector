@@ -78,7 +78,7 @@ class DetailPopup(QDialog, Ui_GameDetail):
 		self.ui=Ui_GameDetail()
 		self.ui.setupUi(self)
 		self.ui.bgName.setText(bgcollection[bggid]["name"])
-		self.ui.description.setHtml('<div style="font-size:18pt">'+bgcollection[bggid]["description"]+'</div>')
+		self.ui.description.setHtml('<div style="font-size:14pt">'+bgcollection[bggid]["description"]+'</div>')
 		imagestring = '_md.'.join(bgcollection[bggid]["image"].rsplit('.',1))
 		self.ui.imageDisplay.setHtml('<div style="text-align: center; vertical-align: middle"><img src='+imagestring+'></div>')
 		self.ui.closeButton.clicked.connect(self.done)
@@ -115,7 +115,7 @@ class DetailPopup(QDialog, Ui_GameDetail):
 			#turn them into strings
 			playercountliststr.append(str(item))
 		self.ui.votingData.setVerticalHeaderLabels(playercountliststr)
-		self.ui.votingData.setColumnWidth(self.BEST,180)
+		self.ui.votingData.setColumnWidth(self.BEST,100)
 		self.ui.votingData.setColumnWidth(self.RECOMMENDED,190)
 		self.ui.votingData.setColumnWidth(self.NOTRECOMMENDED,199)
 		self.ui.votingData.setColumnWidth(self.TOTAL,110)
@@ -171,14 +171,14 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		#and finally link in the admin screen
 		self.ui.downloadData.clicked.connect(lambda: self.downloadData())		
 		#size/format overrides not easily configurable from QTDesigner
-		self.ui.bgcollectionView.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 75px; }")
-		self.ui.bgcollectionView.horizontalHeader().setMinimumHeight(50)
-		self.ui.mechaniclist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 75px; }")
-		self.ui.categorylist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 75px; }")
-		self.ui.bgcollectionView.setColumnWidth(self.NAME,560)
-		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,115)
-		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,115)
-		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,115)
+		self.ui.bgcollectionView.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 50px; }")
+		self.ui.bgcollectionView.horizontalHeader().setMinimumHeight(5)
+		self.ui.mechaniclist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 50px; }")
+		self.ui.categorylist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 50px; }")
+		self.ui.bgcollectionView.setColumnWidth(self.NAME,576)
+		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,75)
+		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,75)
+		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,75)
 		self.ui.resetAll.setVisible(False)
 		#Initial setup
 		self.updateUI()
@@ -245,7 +245,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 				item.setSelected(True)
 		#what feels like uncessary faff to resize rows
 		for x in range(0,len(self.ui.mechaniclist)):
-			self.ui.mechaniclist.item(x).setSizeHint(QSize(750,75))
+			self.ui.mechaniclist.item(x).setSizeHint(QSize(750,30))
 		#and do the same for the category list
 		selection = []
 		for category in self.ui.categorylist.selectedItems():
@@ -258,7 +258,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			for item in self.ui.categorylist.findItems(category,Qt.MatchFixedString):
 				item.setSelected(True)
 		for x in range(0,len(self.ui.categorylist)):
-			self.ui.categorylist.item(x).setSizeHint(QSize(750,75))
+			self.ui.categorylist.item(x).setSizeHint(QSize(750,30))
 
 	
 	def populateTable(self):
@@ -272,7 +272,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.bgcollectionView.setRowCount(len(filteredset))
 		for row, boardgame in enumerate(filteredset):
 			#set row height
-			self.ui.bgcollectionView.setRowHeight(row,75)
+			self.ui.bgcollectionView.setRowHeight(row,30)
 			#name column
 			item = QTableWidgetItem(bgcollection[boardgame]["name"])
 			item.setData(Qt.UserRole, bgcollection[boardgame]["ID"])
@@ -395,7 +395,7 @@ bgcollection = dict()
 #Downloads data from BGG and pickles it to disk for later use by the loadCollection() function
 def downloadCollection(parentwindow, username="Darke"):
 	#Initialisations
-	collection_url=("http://www.boardgamegeek.com/xmlapi2/collection?username="+username+"&wanttoplay=1")
+	collection_url=("https://www.boardgamegeek.com/xmlapi2/geeklist/183975")
 	#BGG XMLAPI2 URL for boardgame data)
 	BGDataURL = "http://www.boardgamegeek.com/xmlapi2/thing?id="
 	#temp list to hold the IDs from the collection
@@ -421,7 +421,8 @@ def downloadCollection(parentwindow, username="Darke"):
 		#Stuff all those BGGIDs into a temp list
 		for each_child in collectionroot:
 			#All we get is the ID here, put it in a temporary list
-			bgcollectionids.append(int(each_child.attrib['objectid']))
+			if (each_child.tag) == 'item':
+				bgcollectionids.append(int(each_child.attrib['objectid']))
 
 	#Now we have the IDs we can iterate the BGGame data XML to populate our objects
 	#Once for each ID in the downloaded collection
@@ -446,7 +447,7 @@ def downloadCollection(parentwindow, username="Darke"):
 			maxplaytime = int(objectroot[0].find('maxplaytime').attrib['value'])
 			description = objectroot[0].find('description').text
 			thumbnail = objectroot[0].find('thumbnail').text
-			image = objectroot[0].find('image').text
+			image = 'http:'+objectroot[0].find('image').text
 			#Overly elaborate nested loop structure for fishing out the suggested player count data
 			suggestedplayercount = dict()
 			#Loop through each poll (there are typically 3)
@@ -640,6 +641,6 @@ if __name__ == "__main__":
 	app = QApplication(sys.argv)
 	form = MainForm()
 	#Dis/Enable next line for frameless
-	form.setWindowFlags(form.windowFlags() | QtCore.Qt.FramelessWindowHint)
+	#form.setWindowFlags(form.windowFlags() | QtCore.Qt.FramelessWindowHint)
 	form.showMaximized()
 	sys.exit(app.exec_())

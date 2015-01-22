@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1819</width>
-    <height>992</height>
+    <width>1280</width>
+    <height>1024</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,15 +20,15 @@
    <widget class="QTableWidget" name="bgcollectionView">
     <property name="geometry">
      <rect>
-      <x>828</x>
+      <x>479</x>
       <y>10</y>
-      <width>984</width>
-      <height>975</height>
+      <width>801</width>
+      <height>1011</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>20</pointsize>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="verticalScrollBarPolicy">
@@ -70,6 +70,12 @@
     <attribute name="verticalHeaderVisible">
      <bool>false</bool>
     </attribute>
+    <attribute name="verticalHeaderDefaultSectionSize">
+     <number>5</number>
+    </attribute>
+    <attribute name="verticalHeaderMinimumSectionSize">
+     <number>5</number>
+    </attribute>
     <row/>
     <column/>
     <column/>
@@ -79,10 +85,10 @@
    <widget class="QLCDNumber" name="lcdResults">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>330</y>
-      <width>91</width>
-      <height>45</height>
+      <x>400</x>
+      <y>240</y>
+      <width>71</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="digitCount">
@@ -97,8 +103,8 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>451</width>
-      <height>311</height>
+      <width>251</width>
+      <height>221</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -116,7 +122,7 @@
        <x>10</x>
        <y>10</y>
        <width>100</width>
-       <height>75</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -134,10 +140,10 @@
     <widget class="QLabel" name="numplayerLabel">
      <property name="geometry">
       <rect>
-       <x>119</x>
-       <y>20</y>
-       <width>121</width>
-       <height>51</height>
+       <x>130</x>
+       <y>10</y>
+       <width>111</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -158,10 +164,10 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>249</x>
-       <y>10</y>
+       <x>10</x>
+       <y>50</y>
        <width>191</width>
-       <height>75</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -180,9 +186,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>90</y>
-       <width>100</width>
-       <height>100</height>
+       <y>100</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
@@ -200,10 +206,10 @@
     <widget class="QPushButton" name="Btn3Player">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>90</y>
-       <width>100</width>
-       <height>100</height>
+       <x>70</x>
+       <y>100</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
@@ -221,10 +227,10 @@
     <widget class="QPushButton" name="Btn4Player">
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>90</y>
-       <width>100</width>
-       <height>100</height>
+       <x>130</x>
+       <y>100</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
@@ -242,10 +248,10 @@
     <widget class="QPushButton" name="Btn5Player">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>90</y>
-       <width>100</width>
-       <height>100</height>
+       <x>190</x>
+       <y>100</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
@@ -264,9 +270,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>200</y>
-       <width>100</width>
-       <height>100</height>
+       <y>160</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
@@ -284,10 +290,10 @@
     <widget class="QPushButton" name="Btn7Player">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>200</y>
-       <width>100</width>
-       <height>100</height>
+       <x>70</x>
+       <y>160</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
@@ -305,10 +311,10 @@
     <widget class="QPushButton" name="Btn8Player">
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>200</y>
-       <width>100</width>
-       <height>100</height>
+       <x>130</x>
+       <y>160</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
@@ -326,10 +332,10 @@
     <widget class="QPushButton" name="Btn9Player">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>200</y>
-       <width>100</width>
-       <height>100</height>
+       <x>190</x>
+       <y>160</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
@@ -348,10 +354,10 @@
    <widget class="QFrame" name="playTimeFrame">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>280</x>
       <y>10</y>
-      <width>341</width>
-      <height>311</height>
+      <width>191</width>
+      <height>221</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -365,8 +371,8 @@
       <rect>
        <x>15</x>
        <y>10</y>
-       <width>311</width>
-       <height>61</height>
+       <width>161</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="font">
@@ -385,14 +391,14 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>90</y>
-       <width>100</width>
-       <height>100</height>
+       <y>100</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>20</pointsize>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -411,15 +417,15 @@
     <widget class="QPushButton" name="Btn60mins">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>90</y>
-       <width>100</width>
-       <height>100</height>
+       <x>70</x>
+       <y>100</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>20</pointsize>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -432,15 +438,15 @@
     <widget class="QPushButton" name="Btn90mins">
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>90</y>
-       <width>100</width>
-       <height>100</height>
+       <x>130</x>
+       <y>100</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>20</pointsize>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -454,14 +460,14 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>200</y>
-       <width>100</width>
-       <height>100</height>
+       <y>160</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>20</pointsize>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -474,15 +480,15 @@
     <widget class="QPushButton" name="Btn150mins">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>200</y>
-       <width>100</width>
-       <height>100</height>
+       <x>70</x>
+       <y>160</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>20</pointsize>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -495,15 +501,15 @@
     <widget class="QPushButton" name="Btn180mins">
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>200</y>
-       <width>100</width>
-       <height>100</height>
+       <x>130</x>
+       <y>160</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>20</pointsize>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -518,14 +524,14 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>330</y>
-      <width>801</width>
-      <height>656</height>
+      <y>240</y>
+      <width>451</width>
+      <height>781</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>28</pointsize>
+      <pointsize>16</pointsize>
      </font>
     </property>
     <property name="tabShape">
@@ -543,13 +549,13 @@
        <rect>
         <x>-1</x>
         <y>-1</y>
-        <width>801</width>
-        <height>600</height>
+        <width>451</width>
+        <height>745</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>28</pointsize>
+        <pointsize>16</pointsize>
        </font>
       </property>
       <property name="verticalScrollBarPolicy">
@@ -581,13 +587,13 @@
        <rect>
         <x>-1</x>
         <y>-1</y>
-        <width>801</width>
-        <height>600</height>
+        <width>451</width>
+        <height>745</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>28</pointsize>
+        <pointsize>16</pointsize>
        </font>
       </property>
       <property name="horizontalScrollBarPolicy">
@@ -638,19 +644,19 @@ Collection</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>561</x>
-      <y>326</y>
-      <width>151</width>
-      <height>50</height>
+      <x>330</x>
+      <y>240</y>
+      <width>61</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>16</pointsize>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>Reset Filters</string>
+     <string>Reset</string>
     </property>
    </widget>
    <zorder>tabbedzone</zorder>

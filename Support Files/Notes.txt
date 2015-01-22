@@ -19,6 +19,8 @@ BGG XML API URLs
 
 Documentation: http://boardgamegeek.com/wiki/page/BGG_XML_API2#
 
+
+http://www.boardgamegeek.com/xmlapi2/geeklist/183975
 http://www.boardgamegeek.com/xmlapi2/collection?username=Darke&wanttoplay=1
 Adding &brief = 1 loses the image and thumbnail entries
 
