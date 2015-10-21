@@ -12,7 +12,7 @@ from GameDetail import *
 #Define the boardgame class
 #Extend dictionary and assign the appropriate data to preset key names
 class boardgamedict(dict):
-	def __init__(self, ID, name, minplayers, maxplayers, minplaytime, maxplaytime, description='', thumbnail='', image='', suggestedplayercount=dict(),categories=list(),mechanics=list()):
+	def __init__(self, ID, name, minplayers, maxplayers, minplaytime, maxplaytime, description='', thumbnail='', image='', suggestedplayercount=dict(),categories=list(),mechanics=list(),username=''):
 		dict.__init__({})
 		self["ID"] = int(ID)
 		self["name"] = name
@@ -26,6 +26,7 @@ class boardgamedict(dict):
 		self["suggestedplayercount"] = suggestedplayercount
 		self["categories"] = categories
 		self["mechanics"] = mechanics
+		self["username"] = username
 
 	def suggestedPlayerCountVote(self,playercount,votetype='Best'):
 		if playercount in self['suggestedplayercount'].keys():
@@ -122,7 +123,7 @@ class DetailPopup(QDialog, Ui_GameDetail):
 
 class MainForm(QMainWindow, Ui_GameSelector):
 
-	NAME, MINPLAYERS, MAXPLAYERS, PLAYTIME = range(4)
+	NAME, MINPLAYERS, MAXPLAYERS, PLAYTIME, OWNER = range(5)
 		
 	def __init__(self,parent=None):
 		super(MainForm, self).__init__(parent)
@@ -175,10 +176,11 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.bgcollectionView.horizontalHeader().setMinimumHeight(5)
 		self.ui.mechaniclist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 50px; }")
 		self.ui.categorylist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 50px; }")
-		self.ui.bgcollectionView.setColumnWidth(self.NAME,576)
-		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,75)
-		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,75)
-		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,75)
+		self.ui.bgcollectionView.setColumnWidth(self.NAME,490)
+		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,50)
+		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,50)
+		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,50)
+		self.ui.bgcollectionView.setColumnWidth(self.OWNER,110)
 		self.ui.resetAll.setVisible(False)
 		#Initial setup
 		self.updateUI()
@@ -266,7 +268,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.bgcollectionView.clear()
 		self.ui.bgcollectionView.setSortingEnabled(False)
 		#replace headers - clear() deletes them :(
-		headers = ["Name", "Min.\nPlayers", "Max.\nPlayers", "Playing\nTime"]
+		headers = ["Name", "Min.", "Max.", "Time", "Owner"]
 		self.ui.bgcollectionView.setHorizontalHeaderLabels(headers)
 		#get the filtered list length and start populating
 		self.ui.bgcollectionView.setRowCount(len(filteredset))
@@ -289,6 +291,10 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			item = QTableWidgetItem(str.rjust(str(bgcollection[boardgame]["maxplaytime"]),3))
 			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
 			self.ui.bgcollectionView.setItem(row, self.PLAYTIME, item)
+                        #owner column
+			item = QTableWidgetItem(str.rjust(str(bgcollection[boardgame]["username"]),3))
+			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
+			self.ui.bgcollectionView.setItem(row, self.OWNER, item)
 		#reenable sorting
 		self.ui.bgcollectionView.setSortingEnabled(True)
 		self.ui.bgcollectionView.horizontalHeader().setSortIndicatorShown(False)
@@ -401,7 +407,8 @@ def downloadCollection(parentwindow, username="Darke"):
 	#temp list to hold the IDs from the collection
 	bgcollectionids = []
 	#Master dictionary, index by BGGID
-	bgcollection = dict()	
+	bgcollection = dict()
+	bgowners = dict()
 	#Firstly, do an initial connection to start the collection cache process
 	collectioncaching = 1
 	while collectioncaching == 1:
@@ -422,7 +429,10 @@ def downloadCollection(parentwindow, username="Darke"):
 		for each_child in collectionroot:
 			#All we get is the ID here, put it in a temporary list
 			if (each_child.tag) == 'item':
-				bgcollectionids.append(int(each_child.attrib['objectid']))
+				objectid = int(each_child.attrib['objectid'])
+				bgcollectionids.append(objectid)
+				#stash the username in a dictionary to retreive when we build the bgdict object
+				bgowners[objectid] = each_child.attrib['username']
 
 	#Now we have the IDs we can iterate the BGGame data XML to populate our objects
 	#Once for each ID in the downloaded collection
@@ -482,8 +492,10 @@ def downloadCollection(parentwindow, username="Darke"):
 				#if it's not a category - is it a mechanic?
 				elif (each_link.attrib['type'] == 'boardgamemechanic'):
 					mechanics.append(each_link.attrib['value'])
+			#Fetch the username we stashed earlier
+			username = bgowners[each_objectid]
 			#Create the boardgame object, shove it in the collection dict
-			bgcollection[each_objectid] = boardgamedict(each_objectid,name,minplayers,maxplayers,minplaytime,maxplaytime,description,thumbnail,image,suggestedplayercount,categories,mechanics)
+			bgcollection[each_objectid] = boardgamedict(each_objectid,name,minplayers,maxplayers,minplaytime,maxplaytime,description,thumbnail,image,suggestedplayercount,categories,mechanics,username)
 
 	#Pickle the lot to disk for later use
 	try:

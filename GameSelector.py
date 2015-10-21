@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Dropbox\Coding\GameSelector\GameSelector.ui'
 #
-# Created: Wed Jan  7 16:47:31 2015
-#      by: PyQt4 UI code generator 4.10.3
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -42,7 +41,7 @@ class Ui_GameSelector(object):
         self.bgcollectionView.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.bgcollectionView.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.bgcollectionView.setRowCount(1)
-        self.bgcollectionView.setColumnCount(4)
+        self.bgcollectionView.setColumnCount(5)
         self.bgcollectionView.setObjectName(_fromUtf8("bgcollectionView"))
         self.bgcollectionView.horizontalHeader().setDefaultSectionSize(50)
         self.bgcollectionView.horizontalHeader().setMinimumSectionSize(1)
@@ -246,6 +245,12 @@ class Ui_GameSelector(object):
         font.setPointSize(14)
         self.resetAll.setFont(font)
         self.resetAll.setObjectName(_fromUtf8("resetAll"))
+        self.tabbedzone.raise_()
+        self.numPlayerFrame.raise_()
+        self.bgcollectionView.raise_()
+        self.lcdResults.raise_()
+        self.playTimeFrame.raise_()
+        self.resetAll.raise_()
         GameSelector.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(GameSelector)
