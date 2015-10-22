@@ -176,11 +176,11 @@ class MainForm(QMainWindow, Ui_GameSelector):
 		self.ui.bgcollectionView.horizontalHeader().setMinimumHeight(5)
 		self.ui.mechaniclist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 20px; }")
 		self.ui.categorylist.verticalScrollBar().setStyleSheet("QScrollBar:vertical { width: 20px; }")
-		self.ui.bgcollectionView.setColumnWidth(self.NAME,610)
+		self.ui.bgcollectionView.setColumnWidth(self.NAME,575)
 		self.ui.bgcollectionView.setColumnWidth(self.MINPLAYERS,60)
 		self.ui.bgcollectionView.setColumnWidth(self.MAXPLAYERS,60)
 		self.ui.bgcollectionView.setColumnWidth(self.PLAYTIME,60)
-		self.ui.bgcollectionView.setColumnWidth(self.OWNER,140)
+		self.ui.bgcollectionView.setColumnWidth(self.OWNER,175)
 		self.ui.resetAll.setVisible(False)
 		#Initial setup
 		self.updateUI()
@@ -291,7 +291,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			item = QTableWidgetItem(str.rjust(str(bgcollection[boardgame]["maxplaytime"]),3))
 			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
 			self.ui.bgcollectionView.setItem(row, self.PLAYTIME, item)
-                        #owner column
+			#owner column
 			item = QTableWidgetItem(str.rjust(str(bgcollection[boardgame]["username"]),3))
 			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
 			self.ui.bgcollectionView.setItem(row, self.OWNER, item)
@@ -420,7 +420,7 @@ def downloadCollection(parentwindow, username="Darke"):
 			time.sleep(30)
 		else:
 			collectioncaching = 0
-	#Right, press on with fetching the actual data now that BGG have ti generated      
+	#Right, press on with fetching the actual data now that BGG have it generated      
 	#Fetch the 'want to play' collection XML, fill the objectiddict with it                
 	with urlopen(collection_url) as collection_xml:
 		collectiontree = etree.parse(collection_xml)
@@ -431,9 +431,20 @@ def downloadCollection(parentwindow, username="Darke"):
 			if (each_child.tag) == 'item':
 				objectid = int(each_child.attrib['objectid'])
 				bgcollectionids.append(objectid)
-				#stash the username in a dictionary to retreive when we build the bgdict object
+				#stash the username in a dictionary to retrieve when we build the bgdict object
 				bgowners[objectid] = each_child.attrib['username']
-
+	#build a lookup of user<->real names
+	usrDataURL = "https://www.boardgamegeek.com/xmlapi2/user?name="
+	usernamelookup = dict()
+	for uniqueusername in set(bgowners.values()):
+		#pause, else we get an HTTP 503 due to abuse
+		time.sleep(1)
+		with urlopen(usrDataURL+str(uniqueusername)) as objectxml:
+			objecttree = etree.parse(objectxml)
+			objectroot = objecttree.getroot()
+			firstname = objectroot.find('firstname').attrib['value']
+			lastname = objectroot.find('lastname').attrib['value']
+			usernamelookup[uniqueusername] = firstname+' '+lastname        
 	#Now we have the IDs we can iterate the BGGame data XML to populate our objects
 	#Once for each ID in the downloaded collection
 	progress = QProgressDialog("Downloading data...", None, 0, len(bgcollectionids), parentwindow);
@@ -494,8 +505,9 @@ def downloadCollection(parentwindow, username="Darke"):
 					mechanics.append(each_link.attrib['value'])
 			#Fetch the username we stashed earlier
 			username = bgowners[each_objectid]
+			realname = usernamelookup[username]
 			#Create the boardgame object, shove it in the collection dict
-			bgcollection[each_objectid] = boardgamedict(each_objectid,name,minplayers,maxplayers,minplaytime,maxplaytime,description,thumbnail,image,suggestedplayercount,categories,mechanics,username)
+			bgcollection[each_objectid] = boardgamedict(each_objectid,name,minplayers,maxplayers,minplaytime,maxplaytime,description,thumbnail,image,suggestedplayercount,categories,mechanics,realname)
 
 	#Pickle the lot to disk for later use
 	try:
