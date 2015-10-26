@@ -439,7 +439,7 @@ def downloadCollection(parentwindow, username="Darke"):
 	for uniqueusername in set(bgowners.values()):
 		#pause, else we get an HTTP 503 due to abuse
 		time.sleep(1)
-		with urlopen(usrDataURL+str(uniqueusername)) as objectxml:
+		with urlopen(usrDataURL+uniqueusername.replace(' ','%20')) as objectxml:
 			objecttree = etree.parse(objectxml)
 			objectroot = objecttree.getroot()
 			firstname = objectroot.find('firstname').attrib['value']
