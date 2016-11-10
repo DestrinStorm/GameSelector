@@ -401,7 +401,7 @@ bgcollection = dict()
 #Downloads data from BGG and pickles it to disk for later use by the loadCollection() function
 def downloadCollection(parentwindow, username="Darke"):
 	#Initialisations
-	collection_url=("https://www.boardgamegeek.com/xmlapi2/geeklist/198243")
+	collection_url=("https://www.boardgamegeek.com/xmlapi2/geeklist/216799")
 	#BGG XMLAPI2 URL for boardgame data)
 	BGDataURL = "http://www.boardgamegeek.com/xmlapi2/thing?id="
 	#temp list to hold the IDs from the collection
