@@ -1,4 +1,5 @@
-
+TODO:
+can't get QTWEBENGINE running on the pi so is ther an alternative to putting the image on the details page?
 
 
 
