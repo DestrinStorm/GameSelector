@@ -3,6 +3,13 @@ can't get QTWEBENGINE running on the pi so is ther an alternative to putting the
 
 
 
+Code for GameDetail imageDisplay incase I delete that again in future:
+        self.imageDisplay = QtGui.QImage(GameDetail)
+        self.imageDisplay.setGeometry(QtCore.QRect(660, 60, 450, 350))
+        self.imageDisplay.setPalette(palette)
+        self.imageDisplay.setObjectName("imageDisplay")
+
+
 group 1, mode 16 = 1920x1080
 
 lxconfig: /etc/xdg/lxsession/LXDE/autostart

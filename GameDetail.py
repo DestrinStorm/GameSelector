@@ -58,6 +58,10 @@ class Ui_GameDetail(object):
         self.description = QtWidgets.QTextBrowser(GameDetail)
         self.description.setGeometry(QtCore.QRect(5, 41, 521, 701))
         self.description.setObjectName("description")
+        self.imageDisplay = QtWidgets.QLabel(GameDetail)
+        self.imageDisplay.setGeometry(QtCore.QRect(690, 90, 400, 300))
+        self.imageDisplay.setText("")
+        self.imageDisplay.setObjectName("imageDisplay")
 
         self.retranslateUi(GameDetail)
         QtCore.QMetaObject.connectSlotsByName(GameDetail)
