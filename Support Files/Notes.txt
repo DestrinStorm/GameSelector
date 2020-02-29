@@ -1,3 +1,7 @@
+
+
+
+
 group 1, mode 16 = 1920x1080
 
 lxconfig: /etc/xdg/lxsession/LXDE/autostart

@@ -4,8 +4,9 @@ import pickle
 import time
 import xml.etree.ElementTree as etree
 from urllib.request import urlopen
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 from GameSelector import *
 from GameDetail import *
 
@@ -30,7 +31,7 @@ class boardgamedict(dict):
 	def suggestedPlayerCountVote(self,playercount,votetype='Best'):
 		if playercount in self['suggestedplayercount'].keys():
 			bestvotes = self['suggestedplayercount'][playercount][votetype]
-			totalvotes = self['suggestedplayercount']['totalvotes']
+			totalvotes = self['suggestedplayercount'][playercount]['total']
 			if totalvotes == 0:
 				#no votes yet :(
 				return 0
@@ -48,7 +49,7 @@ class boardgamedict(dict):
 
 	def suggestedPlayerCountVoteTotal(self,playercount):
 		if playercount in self['suggestedplayercount'].keys():
-			totalvotes = self['suggestedplayercount']['totalvotes']
+			totalvotes = self['suggestedplayercount'][playercount]['total']
 			return str(totalvotes)
 		else:
 			return 0
@@ -79,7 +80,7 @@ class DetailPopup(QDialog, Ui_GameDetail):
 		self.ui.setupUi(self)
 		self.ui.bgName.setText(bgcollection[bggid]["name"])
 		self.ui.description.setHtml('<div style="font-size:18pt">'+bgcollection[bggid]["description"]+'</div>')
-		imagestring = '_md.'.join(bgcollection[bggid]["image"].rsplit('.',1))
+		imagestring = (bgcollection[bggid]["thumbnail"])
 		self.ui.imageDisplay.setHtml('<div style="text-align: center; vertical-align: middle"><img src='+imagestring+'></div>')
 		self.ui.closeButton.clicked.connect(self.done)
 		self.ui.votingData.clear()
@@ -90,7 +91,6 @@ class DetailPopup(QDialog, Ui_GameDetail):
 		#fetch voting data and populate table
 		#clunky arsed way to get the suggestedplayercount values
 		playercountlist = list(bgcollection[bggid]['suggestedplayercount'].keys())
-		playercountlist.remove('totalvotes')
 		self.ui.votingData.setRowCount(len(playercountlist))
 		for row,playercount in enumerate(playercountlist):
 			#Best votes column
@@ -106,7 +106,7 @@ class DetailPopup(QDialog, Ui_GameDetail):
 			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
 			self.ui.votingData.setItem(row, self.NOTRECOMMENDED, item)
 			#Total Votes column
-			item = QTableWidgetItem(bgcollection[bggid].suggestedPlayerCountVoteTotal(playercount))
+			item = QTableWidgetItem(str(bgcollection[bggid].suggestedPlayerCountVoteRaw(playercount,'total')))
 			item.setTextAlignment(Qt.AlignCenter|Qt.AlignVCenter)
 			self.ui.votingData.setItem(row, self.TOTAL, item)
 		#sort out player count row labels
@@ -115,10 +115,10 @@ class DetailPopup(QDialog, Ui_GameDetail):
 			#turn them into strings
 			playercountliststr.append(str(item))
 		self.ui.votingData.setVerticalHeaderLabels(playercountliststr)
-		self.ui.votingData.setColumnWidth(self.BEST,180)
-		self.ui.votingData.setColumnWidth(self.RECOMMENDED,190)
-		self.ui.votingData.setColumnWidth(self.NOTRECOMMENDED,199)
-		self.ui.votingData.setColumnWidth(self.TOTAL,110)
+		self.ui.votingData.setColumnWidth(self.BEST,170)
+		self.ui.votingData.setColumnWidth(self.RECOMMENDED,180)
+		self.ui.votingData.setColumnWidth(self.NOTRECOMMENDED,190)
+		self.ui.votingData.setColumnWidth(self.TOTAL,100)
 
 class MainForm(QMainWindow, Ui_GameSelector):
 
@@ -195,12 +195,13 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			self.ui.resetAll.setVisible(False)
 			for button in self.playercountbuttonset:
 				button.setChecked(False)
+				button.setDisabled(False)
 			self.ui.bestButton.setEnabled(False)
 			self.ui.recommendedButton.setEnabled(False)
 			for i in range(self.ui.mechaniclist.count()):
-				       self.ui.mechaniclist.setItemSelected(self.ui.mechaniclist.item(i), False)
+				       self.ui.mechaniclist.item(i).setSelected(False)
 			for i in range(self.ui.categorylist.count()):
-				       self.ui.categorylist.setItemSelected(self.ui.categorylist.item(i), False)
+				       self.ui.categorylist.item(i).setSelected(False)
 		else:
 			self.ui.resetAll.setVisible(True)
 			self.reconfigurebuttons()
@@ -210,7 +211,7 @@ class MainForm(QMainWindow, Ui_GameSelector):
 	def reconfigurebuttons(self):
 		#reconfigures the playercount and playtime buttons to match any selections elsewhere
 		#key goal here is that we need to make it impossible to choose a player count that would
-		#make a currently selected mechanicm or theme disappear
+		#make a currently selected mechanism or theme disappear
 		#fetch the min and max player count from the current filtered list
 		minplayers = 9
 		maxplayers = 2
@@ -434,7 +435,7 @@ def downloadCollection(parentwindow, username="Darke"):
 		i = i+1
 		progress.setValue(i)
 		#pause, else we get an HTTP 503 due to abuse
-		time.sleep(1)
+		time.sleep(5)
 		with urlopen(BGDataURL+str(each_objectid)) as objectxml:
 			objecttree = etree.parse(objectxml)
 			objectroot = objecttree.getroot()
@@ -454,7 +455,8 @@ def downloadCollection(parentwindow, username="Darke"):
 				#Have we found 'suggested_numplayers?' (as opposed to language dependence or suggested player age)
 				if (each_poll.attrib['name'] == 'suggested_numplayers'):
 					#Fetch the total unique voters for all player counts
-					suggestedplayercount['totalvotes'] = int(each_poll.attrib['totalvotes'])
+					#scrapping this to add it back in later, the total votes across all counts is a bit nonsensical
+					#suggestedplayercount['totalvotes'] = int(each_poll.attrib['totalvotes'])
 					#Loop through each sub poll (one for each player count)
 					for each_numplayerpoll in each_poll.getchildren():
 						#Which numplayers subpoll is this?
@@ -466,11 +468,13 @@ def downloadCollection(parentwindow, username="Darke"):
 							#Check we are within the min and max player counts - we don't care about votes outside of that
 							if (numplayers >= minplayers) and (numplayers <= maxplayers):
 								voteresults = dict()
+								voteresults['total'] = 0
 								#For each vote answer (best, recommended, not recommended) store the name and the vote count)
 								for each_voteanswer in each_numplayerpoll.getchildren():
 									voteresults[each_voteanswer.attrib['value']] = int(each_voteanswer.attrib['numvotes'])
+									voteresults['total'] = voteresults['total'] + int(each_voteanswer.attrib['numvotes'])
 								#Put the results of this subpoll into the dictionary, keyed by the number of players
-								suggestedplayercount[numplayers] = voteresults		
+								suggestedplayercount[numplayers] = voteresults
 			#Parse categories and mechanics
 			categories = list()
 			mechanics = list()
@@ -521,7 +525,7 @@ def loadCollection():
 #initial load
 if os.name == 'nt':
     #Windows
-    os.chdir('C:\Dropbox\Coding\GameSelector')
+    os.chdir('C:\Cognos\WorkingDir\GameSelector')
 else:
     #other
     os.chdir('/home/pi/GameSelector')
