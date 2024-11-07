@@ -203,9 +203,9 @@ class MainForm(QMainWindow, Ui_GameSelector):
 			self.ui.bestButton.setEnabled(False)
 			self.ui.recommendedButton.setEnabled(False)
 			for i in range(self.ui.mechaniclist.count()):
-				       self.ui.mechaniclist.item(i).setSelected(False)
+				self.ui.mechaniclist.item(i).setSelected(False)
 			for i in range(self.ui.categorylist.count()):
-				       self.ui.categorylist.item(i).setSelected(False)
+				self.ui.categorylist.item(i).setSelected(False)
 		else:
 			self.ui.resetAll.setVisible(True)
 			self.reconfigurebuttons()
@@ -529,7 +529,7 @@ def loadCollection():
 #initial load
 if os.name == 'nt':
     #Windows
-    os.chdir('C:\Cognos\WorkingDir\GameSelector')
+    os.chdir(r'C:\EDP\WorkingDir\GameSelector')
 else:
     #other
     os.chdir('/home/pi/GameSelector')
