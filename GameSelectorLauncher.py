@@ -3,7 +3,8 @@ import os
 import pickle
 import time
 import xml.etree.ElementTree as etree
-from urllib.request import urlopen
+import requests
+import shutil
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -80,10 +81,16 @@ class DetailPopup(QDialog, Ui_GameDetail):
 		self.ui.setupUi(self)
 		self.ui.bgName.setText(bgcollection[bggid]["name"])
 		self.ui.description.setHtml('<div style="font-size:18pt">'+bgcollection[bggid]["description"]+'</div>')
-		imagestring = (bgcollection[bggid]["thumbnail"])
-		data = urlopen(imagestring).read()
+		#image handling
+		imagefile = os.sep.join([os.getcwd(), 'images', str(bggid)])
+		if not os.path.isfile(imagefile):
+			imagestring = (bgcollection[bggid]["thumbnail"])
+			data = requests.get(imagestring, stream=True)
+			with open(imagefile, 'w+b') as f:
+				data.raw.decode_content = True
+				shutil.copyfileobj(data.raw, f)
 		image = QtGui.QImage()
-		image.loadFromData(data)
+		image.load(imagefile)
 		pixmap = QtGui.QPixmap(image)
 		self.ui.imageDisplay.setPixmap(pixmap.scaled(400, 300, QtCore.Qt.KeepAspectRatio))
 		self.ui.closeButton.clicked.connect(self.done)
@@ -410,9 +417,9 @@ def downloadCollection(parentwindow, username="Darke"):
 	#Firstly, do an initial connection to start the collection cache process
 	collectioncaching = 1
 	while collectioncaching == 1:
-		collection_probe = urlopen(collection_url)
+		collection_probe = requests.get(collection_url)
 		#check the HTTP return, 202 means we need to delay
-		if collection_probe.getcode() == 202:
+		if collection_probe.status_code == 202:
 			#shut down, go to sleep for 30 secs
 			collection_probe.close()
 			time.sleep(30)
@@ -420,8 +427,8 @@ def downloadCollection(parentwindow, username="Darke"):
 			collectioncaching = 0
 	#Right, press on with fetching the actual data now that BGG have ti generated      
 	#Fetch the 'want to play' collection XML, fill the objectiddict with it                
-	with urlopen(collection_url) as collection_xml:
-		collectiontree = etree.parse(collection_xml)
+	with requests.get(collection_url) as collection_xml:
+		collectiontree = etree.ElementTree(etree.fromstring(collection_xml.text))
 		collectionroot = collectiontree.getroot()
 		#Stuff all those BGGIDs into a temp list
 		for each_child in collectionroot:
@@ -440,8 +447,8 @@ def downloadCollection(parentwindow, username="Darke"):
 		progress.setValue(i)
 		#pause, else we get an HTTP 503 due to abuse
 		time.sleep(5)
-		with urlopen(BGDataURL+str(each_objectid)) as objectxml:
-			objecttree = etree.parse(objectxml)
+		with requests.get(BGDataURL+str(each_objectid)) as objectxmlresponse:
+			objecttree = etree.ElementTree(etree.fromstring(objectxmlresponse.text))
 			objectroot = objecttree.getroot()
 			#There can be multiple names, but it looks like the primary name is always index 0
 			name = objectroot[0].find('name').attrib['value']
@@ -462,7 +469,7 @@ def downloadCollection(parentwindow, username="Darke"):
 					#scrapping this to add it back in later, the total votes across all counts is a bit nonsensical
 					#suggestedplayercount['totalvotes'] = int(each_poll.attrib['totalvotes'])
 					#Loop through each sub poll (one for each player count)
-					for each_numplayerpoll in each_poll.getchildren():
+					for each_numplayerpoll in list(each_poll):
 						#Which numplayers subpoll is this?
 						numplayers = each_numplayerpoll.attrib['numplayers']
 						#Does it end with a +? Don't bother progressing if it does
@@ -474,7 +481,7 @@ def downloadCollection(parentwindow, username="Darke"):
 								voteresults = dict()
 								voteresults['total'] = 0
 								#For each vote answer (best, recommended, not recommended) store the name and the vote count)
-								for each_voteanswer in each_numplayerpoll.getchildren():
+								for each_voteanswer in list(each_numplayerpoll):
 									voteresults[each_voteanswer.attrib['value']] = int(each_voteanswer.attrib['numvotes'])
 									voteresults['total'] = voteresults['total'] + int(each_voteanswer.attrib['numvotes'])
 								#Put the results of this subpoll into the dictionary, keyed by the number of players
